@@ -23,7 +23,7 @@
         lastX,
         unitFlag,
         location;
-        location = "https://bstro.github.com/kern.js/";
+        location = "http://bstro.github.com/kern.js/";
         kerning = 0;
         adjustments = {};
 
