@@ -1,5 +1,5 @@
 /*
-* Kern.JS 0.2.6
+* Kern.JS 0.2.6.1
 * http://www.kernjs.com
 * Built by Brendan Stromberger, www.brendanstromberger.com
 * Special thanks to Mathew Luebbert at www.luebbertm.com for significant code contributions
@@ -7,7 +7,7 @@
 * Thanks to the Lettering.JS team for being so cool and making the web a better place.
 * Released under the WTFPL license 
 * http://sam.zoy.org/wtfpl/
-* Date: Sunday, April 10 2011
+* Date: Tuesday, June 7 2011
 */
  (function() {
     function kern() {
@@ -23,7 +23,7 @@
         lastX,
         unitFlag,
         location;
-        location = "https://github.com/bstro/kern.js/raw/master/";
+        location = "https://bstro.github.com/kern.js/";
         kerning = 0;
         adjustments = {};
 
