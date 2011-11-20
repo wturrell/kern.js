@@ -76,10 +76,9 @@
         jQuery('.kernjs_unitSelect #em').click();
 
         // Contains all CSS adjustments made to separate letter
-        function adjustment(v) {
+        function adjustment() {
         	this.kerning = 0;
-        	this.vertical = Math.round(v);
-        	this.is_relative = 0;
+        	this.vertical = 0;
         }
         
         // This function takes the stored adjustment data and constructs formatted CSS from it.
@@ -187,7 +186,7 @@
                     lastY = event.pageY;
                     if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
                     {
-                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(jQuery(activeEl).position().top);
+                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment();
                     }
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
                     function MoveHandler(event)
@@ -238,7 +237,7 @@
                 if (adjustments[elid + "." + jQuery(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
                 } else {
-                	adj = new adjustment(jQuery(activeEl).position().top)
+                	adj = new adjustment()
                 }
                 if (event.which === 37) { // If left arrow key
                     adj.kerning--;
