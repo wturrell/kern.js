@@ -75,17 +75,23 @@
         });
         jQuery('.kernjs_unitSelect #em').click();
 
+        function adjustment(k, v) {
+        	var kerning = Math.round(k);
+        	var vertical = Math.round(v);
+        }
+        
         //This function takes the stored adjustment data and constructs formatted CSS from it.
         function generateCSS(adjustments, emPx, unitFlag) {
             var x, concatCSS, theCSS;
             theCSS = [];
             for (x in adjustments) {
                 if (adjustments.hasOwnProperty(x)) {
+                	var adj = adjustments[x]
                     if (unitFlag === 'em') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adjustments[x] / emPx) * 1000) / 1000).toString() + 'em', '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em', '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
                     }
                     if (unitFlag === 'px') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adjustments[x].toString() + 'px', '}'].join('\n');
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px', '}'].join('\n');
                     }
                     theCSS = theCSS + '\n' + concatCSS;
                 }
@@ -176,20 +182,37 @@
                     .css('opacity', 1);
 
                     lastX = event.pageX;
+                    lastY = event.pageY;
                     if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
                     {
-                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = 0;
+                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(0, 0);
                     }
-                    kerning = adjustments[elid + "." + jQuery(activeEl).attr("class")];
+                    adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
                     function MoveHandler(event)
                     {
+                        renew = 0
                         var moveX = event.pageX - lastX;
                         if (moveX !== 0)
                         {
                             lastX = event.pageX;
-                            kerning += moveX;
-                            adjustments[elid + "." + jQuery(activeEl).attr("class")] = kerning;
-                            jQuery(activeEl).css('margin-left', kerning.toString() + 'px'); // make live adjustment in DOM
+                            adj.kerning += moveX;
+                            adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
+                            jQuery(activeEl).css('margin-left', adj.kerning.toString() + 'px'); // make live adjustment in DOM
+                            renew = 1;
+                        }
+                        var moveY = event.pageY - lastY;
+                        if (moveY !== 0)
+                        {
+                            lastY = event.pageY;
+                            adj.vertical += moveY;
+                            adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
+                            if (adj.vertical) {
+	                            jQuery(activeEl).css('position:relative'); // make position relative
+	                            jQuery(activeEl).css('top:', adj.vertical.toString() + 'px'); // make live adjustment in DOM
+							}
+							renew = 1
+                        }
+                        if (renew) {
                             generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
                         }
                     }
