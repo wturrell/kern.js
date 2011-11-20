@@ -207,8 +207,8 @@
                             adj.vertical += moveY;
                             adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
                             if (adj.vertical) {
-	                            jQuery(activeEl).css('position:relative'); // make position relative
-	                            jQuery(activeEl).css('top:', adj.vertical.toString() + 'px'); // make live adjustment in DOM
+	                            jQuery(activeEl).css('position', 'relative'); // make position relative
+	                            jQuery(activeEl).css('top', adj.vertical.toString() + 'px'); // make live adjustment in DOM
 							}
 							renew = 1
                         }
