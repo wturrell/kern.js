@@ -75,12 +75,14 @@
         });
         jQuery('.kernjs_unitSelect #em').click();
 
-        function adjustment(k, v) {
-        	this.kerning = Math.round(k);
+        // Contains all CSS adjustments made to separate letter
+        function adjustment(v) {
+        	this.kerning = 0;
         	this.vertical = Math.round(v);
+        	this.is_relative = 0;
         }
         
-        //This function takes the stored adjustment data and constructs formatted CSS from it.
+        // This function takes the stored adjustment data and constructs formatted CSS from it.
         function generateCSS(adjustments, emPx, unitFlag) {
             var x, concatCSS, theCSS;
             theCSS = [];
@@ -88,10 +90,10 @@
                 if (adjustments.hasOwnProperty(x)) {
                 	var adj = adjustments[x]
                     if (unitFlag === 'em') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em;', adj.vertical ? '\tposition: relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em;', adj.vertical ? '\tdisplay: block;\n\tposition: relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
                     }
                     if (unitFlag === 'px') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px;', adj.vertical ? '\tposition: relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px;', adj.vertical ? '\tdisplay: block;\n\tposition: relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
                     }
                     theCSS = theCSS + '\n' + concatCSS;
                 }
@@ -185,7 +187,7 @@
                     lastY = event.pageY;
                     if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
                     {
-                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(0, parseInt(jQuery(activeEl).css('top'), 10));
+                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(jQuery(activeEl).position().top);
                     }
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
                     function MoveHandler(event)
@@ -208,6 +210,7 @@
                             adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
                             if (adj.vertical) {
 	                            jQuery(activeEl).css('position', 'relative'); // make position relative
+	                            jQuery(activeEl).css('display', 'block'); // make position relative
 	                            jQuery(activeEl).css('top', adj.vertical.toString() + 'px'); // make live adjustment in DOM
 							} else {
 	                            jQuery(activeEl).css('position', 'inline'); // make position back inline
@@ -235,7 +238,7 @@
                 if (adjustments[elid + "." + jQuery(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
                 } else {
-                	adj = new adjustment(0, parseInt(jQuery(activeEl).css('top'), 10))
+                	adj = new adjustment(jQuery(activeEl).position().top)
                 }
                 if (event.which === 37) { // If left arrow key
                     adj.kerning--;
