@@ -188,7 +188,7 @@
                     {
                         var a = new adjustment()
                     	if (jQuery(activeEl).css('position') == 'relative') {
-                    		a.vertical = jQuery(activeEl).position().top;
+                    		a.vertical = jQuery(activeEl).offset().top;
                     	}
                         adjustments[elid + "." + jQuery(activeEl).attr("class")] = a;
                     }
