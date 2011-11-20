@@ -76,8 +76,8 @@
         jQuery('.kernjs_unitSelect #em').click();
 
         function adjustment(k, v) {
-        	var kerning = Math.round(k);
-        	var vertical = Math.round(v);
+        	this.kerning = Math.round(k);
+        	this.vertical = Math.round(v);
         }
         
         //This function takes the stored adjustment data and constructs formatted CSS from it.
