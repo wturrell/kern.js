@@ -89,10 +89,10 @@
                 if (adjustments.hasOwnProperty(x)) {
                 	var adj = adjustments[x]
                     if (unitFlag === 'em') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em;', adj.vertical ? '\tdisplay: block;\n\tposition: relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em;', adj.vertical ? '\tdisplay: inline-block;\n\tposition: relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
                     }
                     if (unitFlag === 'px') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px;', adj.vertical ? '\tdisplay: block;\n\tposition: relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px;', adj.vertical ? '\tdisplay: inline-block;\n\tposition: relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
                     }
                     theCSS = theCSS + '\n' + concatCSS;
                 }
@@ -209,7 +209,7 @@
                             adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
                             if (adj.vertical) {
 	                            jQuery(activeEl).css('position', 'relative'); // make position relative
-	                            jQuery(activeEl).css('display', 'block'); // make position relative
+	                            jQuery(activeEl).css('display', 'inline-block'); // make position relative
 	                            jQuery(activeEl).css('top', adj.vertical.toString() + 'px'); // make live adjustment in DOM
 							} else {
 	                            jQuery(activeEl).css('position', 'inline'); // make position back inline
