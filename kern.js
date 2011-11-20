@@ -88,10 +88,10 @@
                 if (adjustments.hasOwnProperty(x)) {
                 	var adj = adjustments[x]
                     if (unitFlag === 'em') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em', adj.vertical ? '\tposition:relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em;', adj.vertical ? '\tposition: relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
                     }
                     if (unitFlag === 'px') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px', adj.vertical ? '\tposition:relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
+                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px;', adj.vertical ? '\tposition: relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
                     }
                     theCSS = theCSS + '\n' + concatCSS;
                 }
@@ -185,7 +185,7 @@
                     lastY = event.pageY;
                     if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
                     {
-                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(0, 0);
+                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(0, parseInt(jQuery(activeEl).css('top'), 10));
                     }
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
                     function MoveHandler(event)
@@ -233,18 +233,20 @@
                     elid = "#" + jQuery(activeEl).parent().attr('id') + " ";
                 }
                 if (adjustments[elid + "." + jQuery(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
-                    kerning = adjustments[elid + "." + jQuery(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
+                    adj = adjustments[elid + "." + jQuery(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
+                } else {
+                	adj = new adjustment(0, parseInt(jQuery(activeEl).css('top'), 10))
                 }
                 if (event.which === 37) { // If left arrow key
-                    kerning--;
-                    jQuery(activeEl).css('margin-left', kerning.toString() + 'px');
-                    adjustments[elid + "." + jQuery(activeEl).attr("class")] = kerning; // add/modify the current letter's kerning information to the "adjustments" object.
+                    adj.kerning--;
+                    jQuery(activeEl).css('margin-left', adj.kerning.toString() + 'px');
+                    adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
                     generateCSS(adjustments, emPx, unitFlag);
                 }
                 if (event.which === 39) { // If right arrow key
-                    kerning++;
-                    jQuery(activeEl).css('margin-left', kerning.toString() + 'px');
-                    adjustments[elid + "." + jQuery(activeEl).attr("class")] = kerning; // add/modify the current letter's kerning information to the "adjustments" object.
+                    adj.kerning++;
+                    jQuery(activeEl).css('margin-left', adj.kerning.toString() + 'px');
+                    adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
                     generateCSS(adjustments, emPx, unitFlag);
                 }
             }
