@@ -76,9 +76,28 @@
         jQuery('.kernjs_unitSelect #em').click();
 
         // Contains all CSS adjustments made to separate letter
-        function adjustment() {
+        function adjustment(el) {
+        	this.element = el;
         	this.kerning = 0;
-        	this.vertical = 0;
+        	this.vertical = this.element.css('position') == 'relative' ? parseInt(this.element.css('top')) : 0;	// If element is relatively positioned - get it's top offset
+        }
+
+        // Kerning adjustment logic
+        adjustment.prototype.set_kerning = function(k) {
+        	this.kerning += k;
+            this.element.css('margin-left', this.kerning.toString() + 'px'); // make live adjustment in DOM
+        }
+
+        // Vertical offset adjustment logic
+        adjustment.prototype.set_vertical = function(v) {
+        	this.vertical += v;
+            if (this.vertical) {
+                this.element.css('position', 'relative'); // make position relative
+	            this.element.css('display', 'inline-block'); // make position relative
+	            this.element.css('top', this.vertical.toString() + 'px'); // make live adjustment in DOM
+	        } else {
+	            this.element.css('position', 'inline'); // make position back inline
+	        }
         }
         
         // This function takes the stored adjustment data and constructs formatted CSS from it.
@@ -186,11 +205,7 @@
                     lastY = event.pageY;
                     if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
                     {
-                        var a = new adjustment()
-                    	if (jQuery(activeEl).css('position') == 'relative') {
-                    		a.vertical = parseInt(jQuery(activeEl).css('top'));
-                    	}
-                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = a;
+                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(jQuery(activeEl));
                     }
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
                     function MoveHandler(event)
@@ -200,24 +215,16 @@
                         if (moveX !== 0)
                         {
                             lastX = event.pageX;
-                            adj.kerning += moveX;
+                            adj.set_kerning(moveX);
                             adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
-                            jQuery(activeEl).css('margin-left', adj.kerning.toString() + 'px'); // make live adjustment in DOM
                             renew = 1;
                         }
                         var moveY = event.pageY - lastY;
                         if (moveY !== 0)
                         {
                             lastY = event.pageY;
-                            adj.vertical += moveY;
+                            adj.set_vertical(moveY);
                             adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
-                            if (adj.vertical) {
-	                            jQuery(activeEl).css('position', 'relative'); // make position relative
-	                            jQuery(activeEl).css('display', 'inline-block'); // make position relative
-	                            jQuery(activeEl).css('top', adj.vertical.toString() + 'px'); // make live adjustment in DOM
-							} else {
-	                            jQuery(activeEl).css('position', 'inline'); // make position back inline
-							}
 							renew = 1
                         }
                         if (renew) {
@@ -241,17 +248,27 @@
                 if (adjustments[elid + "." + jQuery(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
                 } else {
-                	adj = new adjustment()
+                	adj = new adjustment(jQuery(activeEl))
                 }
+                renew = 0;
                 if (event.which === 37) { // If left arrow key
-                    adj.kerning--;
-                    jQuery(activeEl).css('margin-left', adj.kerning.toString() + 'px');
-                    adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
-                    generateCSS(adjustments, emPx, unitFlag);
+                    adj.set_kerning(-1);
+                    renew = 1;
                 }
                 if (event.which === 39) { // If right arrow key
-                    adj.kerning++;
-                    jQuery(activeEl).css('margin-left', adj.kerning.toString() + 'px');
+                    adj.set_kerning(1);
+                    renew = 1;
+                }
+                if (event.which === 38) { // If up arrow key
+                    adj.set_vertical(-1);
+                    renew = 1;
+                }
+                if (event.which === 40) { // If down arrow key
+                    adj.set_vertical(1);
+                    renew = 1;
+                }
+                if (renew) {
+                	event.stopPropagation();
                     adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
                     generateCSS(adjustments, emPx, unitFlag);
                 }
