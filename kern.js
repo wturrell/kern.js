@@ -186,7 +186,11 @@
                     lastY = event.pageY;
                     if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
                     {
-                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment();
+                        var a = new adjustment()
+                    	if (jQuery(activeEl).css('position') == 'relative') {
+                    		a.vertical = jQuery(activeEl).position().top;
+                    	}
+                        adjustments[elid + "." + jQuery(activeEl).attr("class")] = a;
                     }
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
                     function MoveHandler(event)
