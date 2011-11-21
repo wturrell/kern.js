@@ -149,24 +149,6 @@
             this.element.css('-o-transform', deg);
         }
 
-        // Size adjustment logic
-        adjustment.prototype.set_size = function(s) {
-        	if (!sizeFlag) return;
-        	this.size += s;
-            this.element.css('font-size', this.size + '%'); // change letter size
-        }
-
-        // Size adjustment logic
-        adjustment.prototype.set_angle = function(a) {
-        	if (!angleFlag) return;
-        	this.angle += a;
-        	this.make_relative();
-        	var deg = 'rotate(' + Math.round(this.angle) + 'deg)';
-            this.element.css('-webkit-transform', deg);
-            this.element.css('-moz-transform', deg);
-            this.element.css('-o-transform', deg);
-        }
-
         // Converting adjustment to css
         adjustment.prototype.to_css = function(in_em) {
         	css = new Array();
@@ -187,9 +169,6 @@
 	        	}
         	}
         	if (this.size != 100) {		// Font size
-        		css.push('font-size: ' + this.size + '%;');
-        	}
-        	if (this.size != 100 && sizeFlag) {		// Font size
         		css.push('font-size: ' + this.size + '%;');
         	}
         	return '\t' + css.join('\n\t');
