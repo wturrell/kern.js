@@ -75,6 +75,11 @@
         });
         jQuery('.kernjs_unitSelect #em').click();
 
+        // Returns value in em
+        function em(value) {
+        	return (Math.round((value / emPx) * 1000) / 1000).toString();
+        }
+        
         // Contains all CSS adjustments made to separate letter
         function adjustment(el) {
         	this.element = el;
@@ -99,6 +104,20 @@
 	            this.element.css('position', 'inline'); // make position back inline
 	        }
         }
+
+        // Converting adjustment to css
+        adjustment.prototype.to_css = function(in_em) {
+        	css = new Array();
+        	if (this.kerning) {
+        		css.push('margin-left: ' + (in_em ? em(this.kerning) + 'em;' : this.kerning.toString() + 'px;'));
+        	}
+        	if (this.vertical) {
+        		css.push('display: inline-block;');
+        		css.push('position: relative;');
+        		css.push('top: ' + (in_em ? em(this.vertical) + 'em;' : this.vertical.toString() + 'px;'));
+        	}
+        	return '\t' + css.join('\n\t');
+        }
         
         // This function takes the stored adjustment data and constructs formatted CSS from it.
         function generateCSS(adjustments, emPx, unitFlag) {
@@ -107,12 +126,7 @@
             for (x in adjustments) {
                 if (adjustments.hasOwnProperty(x)) {
                 	var adj = adjustments[x]
-                    if (unitFlag === 'em') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + (Math.round((adj.kerning / emPx) * 1000) / 1000).toString() + 'em;', adj.vertical ? '\tdisplay: inline-block;\n\tposition: relative;\n\ttop: ' + (Math.round((adj.vertical / emPx) * 1000) / 1000).toString() + 'em\n}': '}'].join('\n'); // This sweet little line performs the pixel->em conversion. Booya.
-                    }
-                    if (unitFlag === 'px') {
-                        concatCSS = [x + " {", '\t' + 'margin-left: ' + adj.kerning.toString() + 'px;', adj.vertical ? '\tdisplay: inline-block;\n\tposition: relative;\n\ttop: ' + adj.vertical.toString() + 'px\n}': '}'].join('\n');
-                    }
+                    concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}'].join('\n');
                     theCSS = theCSS + '\n' + concatCSS;
                 }
             }
