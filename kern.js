@@ -25,7 +25,7 @@
         verticalFlag,
         sizeFlag,
         location;
-        location = "http://bstro.github.com/kern.js/";
+        location = "http://frague.github.com/kern.js/";		// "http://bstro.github.com/kern.js/"
         kerning = 0;
         adjustments = {};
 
@@ -47,7 +47,7 @@
         html +=         '<form class="kernjs_unit" action="">';
         html +=             '<section><input type="button" name="kernjs_unit" value="em" id="em" /></section>';
         html +=             '<section><input type="button" name="kernjs_unit" value="px" /></section>';
-        html +=             '<section style="text-align:left"><div><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Allow vertical adjustment</div>';
+        html +=             '<section><div><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Allow vertical adjustment</div>';
         html +=             '<div><input type="checkbox" id="kernjs_size" name="kernjs_size" /> Allow size adjustment</div></section>';
         html +=     '   </form>';
         html +=     '</div>';
