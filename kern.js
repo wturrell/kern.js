@@ -160,6 +160,7 @@
         adjustment.prototype.set_angle = function(a) {
         	if (!angleFlag) return;
         	this.angle += a;
+        	this.make_relative();
         	var deg = 'rotate(' + Math.round(this.angle) + 'deg)';
             this.element.css('-webkit-transform', deg);
             this.element.css('-moz-transform', deg);
