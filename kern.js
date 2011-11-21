@@ -23,6 +23,7 @@
         lastX,
         unitFlag,
         verticalFlag,
+        sizeFlag,
         location;
         location = "http://bstro.github.com/kern.js/";
         kerning = 0;
@@ -46,7 +47,8 @@
         html +=         '<form class="kernjs_unit" action="">';
         html +=             '<section><input type="button" name="kernjs_unit" value="em" id="em" /></section>';
         html +=             '<section><input type="button" name="kernjs_unit" value="px" /></section>';
-        html +=             '<section><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Allow vertical adjustment</section>';
+        html +=             '<section style="text-align:left"><div><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Allow vertical adjustment</div>';
+        html +=             '<div><input type="checkbox" id="kernjs_size" name="kernjs_size" /> Allow size adjustment</div></section>';
         html +=     '   </form>';
         html +=     '</div>';
 
@@ -81,6 +83,11 @@
         	verticalFlag = jQuery(this).is(':checked');
 		});
         verticalFlag = 0;
+
+        jQuery('.kernjs_unitSelect #kernjs_size').click(function() {
+        	sizeFlag = jQuery(this).is(':checked');
+		});
+        sizeFlag = 0;
 
         // Returns value in em
         function em(value) {
@@ -145,8 +152,7 @@
         function findRootHeader(el) {
             var toReturn;
             toReturn = el;
-            while (jQuery.inArray(jQuery(toReturn).get(0).tagName, ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) < 0)
-            {
+            while (jQuery.inArray(jQuery(toReturn).get(0).tagName, ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) < 0) {
                 toReturn = jQuery(toReturn).parent();
             }
             return toReturn;
@@ -154,8 +160,7 @@
 
         // The following two functions (splitter and injector) are modified versions of Lettering.JS functions. Using these allows Lettering.JS and Kern.JS to work together well.
         function splitter(el) {
-            if (jQuery(el).children().length === 0)
-            {
+            if (jQuery(el).children().length === 0) {
                 return injector(jQuery(el), '', 'char', '');
             }
             return jQuery.each(el.children(),
