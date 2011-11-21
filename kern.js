@@ -24,6 +24,9 @@
         unitFlag,
         verticalFlag,
         sizeFlag,
+        angleFlag,
+        altHold = 0,
+        shiftHold = 0,
         location;
         location = "http://frague.github.com/kern.js/";		// "http://bstro.github.com/kern.js/"
         kerning = 0;
@@ -47,8 +50,9 @@
         html +=         '<form class="kernjs_unit" action="">';
         html +=             '<section><input type="button" name="kernjs_unit" value="em" id="em" /></section>';
         html +=             '<section><input type="button" name="kernjs_unit" value="px" /></section>';
-        html +=             '<section><div><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Allow vertical adjustment</div>';
-        html +=             '<div><input type="checkbox" id="kernjs_size" name="kernjs_size" /> Allow size adjustment</div></section>';
+        html +=             '<section><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Vertical adjustment<section>';
+        html +=             '<section><input type="checkbox" id="kernjs_size" name="kernjs_size" /> Size (hold Shift)</section>';
+        html +=             '<section><input type="checkbox" id="kernjs_angle" name="kernjs_angle" /> Angle (hold Alt)</section>';
         html +=     '   </form>';
         html +=     '</div>';
 
@@ -79,15 +83,14 @@
         });
         jQuery('.kernjs_unitSelect #em').click();
 
-        jQuery('.kernjs_unitSelect #kernjs_vert').click(function() {
-        	verticalFlag = jQuery(this).is(':checked');
+        jQuery('.kernjs_unitSelect input:checkbox').click(function() {
+        	verticalFlag = jQuery('#kernjs_vert').is(':checked');
+        	sizeFlag = jQuery('#kernjs_size').is(':checked');
+        	angleFlag = jQuery('#kernjs_angle').is(':checked');
 		});
         verticalFlag = 0;
-
-        jQuery('.kernjs_unitSelect #kernjs_size').click(function() {
-        	sizeFlag = jQuery(this).is(':checked');
-		});
         sizeFlag = 0;
+        angleFlag = 0;
 
         // Returns value in em
         function em(value) {
@@ -99,6 +102,9 @@
         	this.element = el;
         	this.kerning = 0;
         	this.vertical = this.element.css('position') == 'relative' ? parseInt(this.element.css('top')) : 0;	// If element is relatively positioned - get it's top offset
+        	if (isNaN(this.vertical)) this.vertical = 0;
+        	this.size = 100;
+        	this.angle = 0;
         }
 
         // Kerning adjustment logic
@@ -107,29 +113,63 @@
             this.element.css('margin-left', this.kerning.toString() + 'px'); // make live adjustment in DOM
         }
 
+        // Makes letter relative
+        adjustment.prototype.make_relative = function() {
+        	if (this.angle || this.vertical) {
+                this.element.css('position', 'relative'); // make position relative
+	            this.element.css('display', 'inline-block'); // make position relative
+        	} else {
+	            this.element.css('position', 'inline'); // make position back inline
+        	}
+        }
+        
         // Vertical offset adjustment logic
         adjustment.prototype.set_vertical = function(v) {
         	if (!verticalFlag) return;
         	this.vertical += v;
-            if (this.vertical) {
-                this.element.css('position', 'relative'); // make position relative
-	            this.element.css('display', 'inline-block'); // make position relative
-	            this.element.css('top', this.vertical.toString() + 'px'); // make live adjustment in DOM
-	        } else {
-	            this.element.css('position', 'inline'); // make position back inline
-	        }
+        	this.make_relative();
+            this.element.css('top', this.vertical.toString() + 'px'); // make live adjustment in DOM
+        }
+
+        // Size adjustment logic
+        adjustment.prototype.set_size = function(s) {
+        	if (!sizeFlag) return;
+        	this.size += s;
+            this.element.css('font-size', this.size + '%'); // change letter size
+        }
+
+        // Size adjustment logic
+        adjustment.prototype.set_angle = function(a) {
+        	if (!angleFlag) return;
+        	this.angle += a;
+        	this.make_relative();
+        	var deg = 'rotate(' + Math.round(this.angle) + 'deg)';
+            this.element.css('-webkit-transform', deg);
+            this.element.css('-moz-transform', deg);
+            this.element.css('-o-transform', deg);
         }
 
         // Converting adjustment to css
         adjustment.prototype.to_css = function(in_em) {
         	css = new Array();
-        	if (this.kerning) {
+        	if (this.kerning) {		// Kerning
         		css.push('margin-left: ' + (in_em ? em(this.kerning) + 'em;' : this.kerning.toString() + 'px;'));
         	}
-        	if (this.vertical && verticalFlag) {
+        	if (this.vertical || this.angle) {	// Relative positioning
         		css.push('display: inline-block;');
         		css.push('position: relative;');
-        		css.push('top: ' + (in_em ? em(this.vertical) + 'em;' : this.vertical.toString() + 'px;'));
+        		if (this.vertical) {	// Vertical offset
+	        		css.push('top: ' + (in_em ? em(this.vertical) + 'em;' : this.vertical.toString() + 'px;'));
+	        	}
+	        	if (this.angle) {		// Angle
+        			var deg = 'rotate(' + Math.round(this.angle) + 'deg);';
+            		css.push('-webkit-transform' + deg);
+		            css.push('-moz-transform' + deg);
+		            css.push('-o-transform' + deg);
+	        	}
+        	}
+        	if (this.size != 100) {		// Font size
+        		css.push('font-size: ' + this.size + '%;');
         	}
         	return '\t' + css.join('\n\t');
         }
@@ -237,17 +277,25 @@
                     function MoveHandler(event) {
                         renew = 0
                         var moveX = event.pageX - lastX;
-                        if (moveX !== 0) {
-                            lastX = event.pageX;
-                            adj.set_kerning(moveX);
-                            renew = 1;
-                        }
                         var moveY = event.pageY - lastY;
-                        if (moveY !== 0) {
-                            lastY = event.pageY;
-                            adj.set_vertical(moveY);
-							renew = 1
-                        }
+                        if (event.shiftKey) {	// If Shift key is pressed - change letter size
+       	                    adj.set_size(moveX);
+           	                renew = 1;
+                        } else if (event.altKey) {	// If Alt key is pressed - rotate letter
+       	                    adj.set_angle(moveX);
+           	                renew = 1;
+                        } else {
+	                        if (moveX !== 0) {
+        	                    adj.set_kerning(moveX);
+            	                renew = 1;
+                	        }
+                    	    if (moveY !== 0) {
+                            	adj.set_vertical(moveY);
+								renew = 1
+    	                    }
+    	                }
+ 	                    lastX = event.pageX;
+                       	lastY = event.pageY;
                         if (renew) {
                             adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
                             generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
