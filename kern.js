@@ -22,6 +22,7 @@
         emPx,
         lastX,
         unitFlag,
+        verticalFlag,
         location;
         location = "http://bstro.github.com/kern.js/";
         kerning = 0;
@@ -43,8 +44,9 @@
         html = '<div class="kernjs_panel">';
         html +=     '<div class="kernjs_unitSelect">';
         html +=         '<form class="kernjs_unit" action="">';
-        html +=             '<section><input type="button" id="em" type="button" name="kernjs_unit" value="em" /></section>';
-        html +=             '<section><input type="button" type="button" name="kernjs_unit" value="px" /></section>';
+        html +=             '<section><input type="button" name="kernjs_unit" value="em" id="em" /></section>';
+        html +=             '<section><input type="button" name="kernjs_unit" value="px" /></section>';
+        html +=             '<section><input type="checkbox" id="kernjs_vert" name="kernjs_vert" /> Allow vertical adjustment</section>';
         html +=     '   </form>';
         html +=     '</div>';
 
@@ -64,8 +66,8 @@
             opacity: 1
         });
 
-        jQuery(".kernjs_unitSelect input").click(function() {
-            jQuery(".kernjs_unitSelect input")
+        jQuery(".kernjs_unitSelect input:button").click(function() {
+            jQuery('.kernjs_unitSelect input:button')
                 .css('background-color', '#FFF')
                 .css('color','#000');
             jQuery(this)
@@ -74,6 +76,11 @@
             unitFlag = jQuery(this).attr('value');
         });
         jQuery('.kernjs_unitSelect #em').click();
+
+        jQuery('.kernjs_unitSelect #kernjs_vert').click(function() {
+        	verticalFlag = jQuery(this).is(':checked');
+		});
+        verticalFlag = 0;
 
         // Returns value in em
         function em(value) {
@@ -95,6 +102,7 @@
 
         // Vertical offset adjustment logic
         adjustment.prototype.set_vertical = function(v) {
+        	if (!verticalFlag) return;
         	this.vertical += v;
             if (this.vertical) {
                 this.element.css('position', 'relative'); // make position relative
@@ -111,7 +119,7 @@
         	if (this.kerning) {
         		css.push('margin-left: ' + (in_em ? em(this.kerning) + 'em;' : this.kerning.toString() + 'px;'));
         	}
-        	if (this.vertical) {
+        	if (this.vertical && verticalFlag) {
         		css.push('display: inline-block;');
         		css.push('position: relative;');
         		css.push('top: ' + (in_em ? em(this.vertical) + 'em;' : this.vertical.toString() + 'px;'));
@@ -217,31 +225,26 @@
 
                     lastX = event.pageX;
                     lastY = event.pageY;
-                    if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined')
-                    {
+                    if (typeof(adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined') {
                         adjustments[elid + "." + jQuery(activeEl).attr("class")] = new adjustment(jQuery(activeEl));
                     }
                     adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
-                    function MoveHandler(event)
-                    {
+                    function MoveHandler(event) {
                         renew = 0
                         var moveX = event.pageX - lastX;
-                        if (moveX !== 0)
-                        {
+                        if (moveX !== 0) {
                             lastX = event.pageX;
                             adj.set_kerning(moveX);
-                            adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
                             renew = 1;
                         }
                         var moveY = event.pageY - lastY;
-                        if (moveY !== 0)
-                        {
+                        if (moveY !== 0) {
                             lastY = event.pageY;
                             adj.set_vertical(moveY);
-                            adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
 							renew = 1
                         }
                         if (renew) {
+                            adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
                             generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
                         }
                     }
