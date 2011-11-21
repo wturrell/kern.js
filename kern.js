@@ -158,9 +158,9 @@
 
         // Size adjustment logic
         adjustment.prototype.set_angle = function(a) {
-        	if (!sizeFlag) return;
+        	if (!angleFlag) return;
         	this.angle += a;
-        	var deg = 'rotate(' + Math.round(a) + 'deg)';
+        	var deg = 'rotate(' + Math.round(this.angle) + 'deg)';
             this.element.css('-webkit-transform', deg);
             this.element.css('-moz-transform', deg);
             this.element.css('-o-transform', deg);
