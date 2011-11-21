@@ -149,6 +149,13 @@
             this.element.css('-o-transform', deg);
         }
 
+        // Size adjustment logic
+        adjustment.prototype.set_size = function(s) {
+        	if (!sizeFlag) return;
+        	this.size += s;
+            this.element.css('font-size', this.size + '%'); // change letter size
+        }
+
         // Converting adjustment to css
         adjustment.prototype.to_css = function(in_em) {
         	css = new Array();
