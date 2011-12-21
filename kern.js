@@ -15,7 +15,7 @@
 * http://sam.zoy.org/wtfpl/
 * Date: Tuesday, June 7 2011
 */
-(function () {
+(function($) {
   "use strict";
   function kern() {
     var activeEl, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX, transformFlag = 'kerning',
@@ -38,7 +38,7 @@
     thePanel = document.createElement("div");
     thePanel.id = "panel";
     thePanel.setAttribute("class", "kernjs_panel");
-    jQuery(thePanel).css('opacity', '0');
+    $(thePanel).css('opacity', '0');
 
     html = '<div class="kernjs_panel" id="kernjs_panel">';
     html += '<div id="kernjs_transformSelect">';
@@ -57,18 +57,18 @@
     html += '</div>';
 
     thePanel.innerHTML = html;
-    jQuery("body").prepend(thePanel);
+    $("body").prepend(thePanel);
 
-    jQuery("#kernjs_panel") // push down content below kernjs_panel
-    .after(jQuery("<div id='spacer'></div>").css('height', jQuery(".kernjs_panel").css("height")));
+    $("#kernjs_panel") // push down content below kernjs_panel
+    .after($("<div id='spacer'></div>").css('height', $(".kernjs_panel").css("height")));
 
-    jQuery(".kernjs_panel").animate({
+    $(".kernjs_panel").animate({
       opacity: 1
     });
 
-    jQuery("#kernjs_transformSelect button").click(function () {
-      jQuery("#kernjs_transformSelect button").removeClass('active');
-      transformFlag = jQuery(this).addClass('active').attr('value');
+    $("#kernjs_transformSelect button").click(function () {
+      $("#kernjs_transformSelect button").removeClass('active');
+      transformFlag = $(this).addClass('active').attr('value');
     });
 
     // Returns value in em
@@ -193,18 +193,18 @@
     function findRootHeader(el) {
       var toReturn;
       toReturn = el;
-      while (jQuery.inArray(jQuery(toReturn).get(0).tagName, ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) < 0) {
-        toReturn = jQuery(toReturn).parent();
+      while ($.inArray($(toReturn).get(0).tagName, ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) < 0) {
+        toReturn = $(toReturn).parent();
       }
       return toReturn;
     }
 
     // The following two functions (splitter and injector) are modified versions of Lettering.JS functions. Using these allows Lettering.JS and Kern.JS to work together well.
     function splitter(el) {
-      if (jQuery(el).children().length === 0) {
-        return injector(jQuery(el), '', 'char', '');
+      if ($(el).children().length === 0) {
+        return injector($(el), '', 'char', '');
       }
-      return jQuery.each(el.children(), function (index, value) {
+      return $.each(el.children(), function (index, value) {
         splitter(value);
       });
     }
@@ -213,49 +213,49 @@
       var a = t.text().split(splitter),
         inject = '';
       if (a.length > 1) {
-        jQuery(a).each(function (i, item) {
+        $(a).each(function (i, item) {
           inject += '<span class="' + klass + (i + 1) + '">' + item + '</span>' + after;
         });
         t.empty().append(inject);
       }
     }
-
-    jQuery("h1, h2, h3, h4, h5, h6").click(function (event) { // Activate a word
+    
+    $("h1, h2, h3, h4, h5, h6").click(function (event) { // Activate a word
       var emRatio, el, previousColor, theHtml, elid;
       elid = ""; // if the user clicks on a header element with an ID, elid is set to be equal to the ID of the header element.
       event.preventDefault(); // Prevent headers that are also links from following the URL while Kern.JS is active.
       if (activeHeader !== this) {
         activeHeader = this;
-        emRatio = jQuery("<span />").appendTo(event.target).css('height', '1em').css('visibility', 'hidden'); // This little guy finds the pixel size of 1em.
+        emRatio = $("<span />").appendTo(event.target).css('height', '1em').css('visibility', 'hidden'); // This little guy finds the pixel size of 1em.
         emPx = emRatio.height();
         emRatio.detach(); // Retrieves the height value from emRatio, store it, and destroy emRatio since we don't need it anymore.
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " "; 
         
-        if (jQuery(el).attr('id')) { // If the clicked header has an ID...
+        if ($(el).attr('id')) { // If the clicked header has an ID...
           elid += "#" + $(el).attr('id') + " "; //...set elid to be a css string representation of the header's id (for example, "#myheader")
           console.log(elid);
         }
 
         if ($) {
-          theHtml = splitter(jQuery(el)); // Call method from Lettering.js. This method splits up the clicked body of text into <span> elements containing single letters.
+          theHtml = splitter($(el)); // Call method from Lettering.js. This method splits up the clicked body of text into <span> elements containing single letters.
         }
 
-        jQuery(this).attr('unselectable', 'on').css('-moz-user-select', 'none').each(function () {
+        $(this).attr('unselectable', 'on').css('-moz-user-select', 'none').each(function () {
           this.onselectstart = function () {
             return false;
           };
         });
 
-        jQuery(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
+        $(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
           var adj, lastX, lastY, that;
           activeEl = event.target; // Set activeEl to represent the clicked letter.
           lastX = event.pageX;
           lastY = event.pageY;
-          if (typeof (adjustments[elid + "." + jQuery(activeEl).attr("class")]) === 'undefined') {
-            adjustments[elid + "." + jQuery(activeEl).attr("class")] = new Adjustment(jQuery(activeEl));
+          if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
+            adjustments[elid + "." + $(activeEl).attr("class")] = new Adjustment($(activeEl));
           }
-          adj = adjustments[elid + "." + jQuery(activeEl).attr("class")];
+          adj = adjustments[elid + "." + $(activeEl).attr("class")];
 
           function MoveHandler(event) {
             var moveX = event.pageX - lastX,
@@ -284,42 +284,32 @@
             lastX = event.pageX;
             lastY = event.pageY;
             if (renew) {
-              adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj;
+              adjustments[elid + "." + $(activeEl).attr("class")] = adj;
               generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
             }
           }
-          jQuery(this).bind('mousemove', MoveHandler);
-          jQuery(this).mouseup(function (event) {
-            jQuery(this).unbind('mousemove', MoveHandler);
+          $(this).bind('mousemove', MoveHandler);
+          $(this).mouseup(function (event) {
+            $(this).unbind('mousemove', MoveHandler);
           });
         });
         // end el click
       }
     });
 
-    // $(validElements).live({
-    //   mouseover: function(event) {
-    //       event.stopPropagation(); // Listens for mousovers on only the topmost element (stopPropagation keeps it from listening to the all the "layers" of elements that the mouse might be hovering over.)
-    //       $(this).addClass('kernjs_activated');
-    //   },
-    //   mouseout: function(event) {
-    //       $(this).removeClass('kernjs_activated');
-    //   }
-    // });
-
-    jQuery(document).keydown(function (event) { // This feels cludgy and should probably be rewritten at some point b/c there is a lot of reused code.
+    $(document).keydown(function (event) { // This feels cludgy and should probably be rewritten at some point b/c there is a lot of reused code.
       var elid = "",
         renew = 0,
         adj;
       if (activeEl) {
         elid += activeEl.tagName.toLowerCase() + " ";
-        if (jQuery(activeEl).parent().attr('id')) {
-          elid += "#" + jQuery(activeEl).parent().attr('id') + " ";
+        if ($(activeEl).parent().attr('id')) {
+          elid += "#" + $(activeEl).parent().attr('id') + " ";
         }
-        if (adjustments[elid + "." + jQuery(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
-          adj = adjustments[elid + "." + jQuery(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
+        if (adjustments[elid + "." + $(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
+          adj = adjustments[elid + "." + $(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
         } else {
-          adj = new Adjustment(jQuery(activeEl));
+          adj = new Adjustment($(activeEl));
         }
         if (event.which === 37) { // If left arrow key
           adj.set_position(-1, 0);
@@ -339,13 +329,13 @@
         }
         if (renew) {
           event.stopPropagation();
-          adjustments[elid + "." + jQuery(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
+          adjustments[elid + "." + $(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
           generateCSS(adjustments, emPx, unitFlag);
         }
       }
     });
 
-    outputPanel = jQuery("#kernjs_panel button#kernjs_finish").mouseup(function () {
+    outputPanel = $("#kernjs_panel button#kernjs_finish").mouseup(function () {
       var outputPanel, outputHTML = '';
       outputPanel = document.createElement("div");
       outputPanel.setAttribute("id", "kernjs_dialog");
@@ -364,22 +354,22 @@
         outputHTML += '</div>';
       }
 
-      jQuery(outputPanel).html(outputHTML);
-      jQuery("body").append('<div id="kernjs_overlay"><div id="kernjs_dialogshade">');
-      jQuery("#kernjs_dialogshade").after(jQuery(outputPanel));
+      $(outputPanel).html(outputHTML);
+      $("body").append('<div id="kernjs_overlay"><div id="kernjs_dialogshade">');
+      $("#kernjs_dialogshade").after($(outputPanel));
 
-      jQuery("#kernjs_dialogshade").bind('click', function () {
-        jQuery("#kernjs_overlay").fadeOut(function () {
-          jQuery(this).detach();
+      $("#kernjs_dialogshade").bind('click', function () {
+        $("#kernjs_overlay").fadeOut(function () {
+          $(this).detach();
         });
       });
 
-      jQuery(".kernjs_close").click(function () {
-        jQuery("#kernjs_overlay").fadeOut(function () {
-          jQuery(this).detach();
+      $(".kernjs_close").click(function () {
+        $("#kernjs_overlay").fadeOut(function () {
+          $(this).detach();
         });
       });
     });
   }
   kern();
-})();
+})(jQuery);
