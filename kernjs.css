@@ -1,161 +1,290 @@
-.kernjs_panel * {
-    outline: none;
-}
-.kernjs_panel {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 900;
-    font-size: 16px;
-    text-transform: none;
-    position: absolute;
-    top: 0;
-    z-index: 1000000000;
-    text-align: center;
-    height: 58px;
-    width: 100%;
-    margin: 0 auto;
-    background: url(noise.png) #f1f1f1;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+#kernjs_panel, #kernjs_panel *, #kernjs_dialog, #kernjs_dialog * {
+border: none !important;
+display: block !important;
+margin: 0 !important;
+outline: none !important;
+padding: 0 !important;
+
+background: none !important;
+cursor: auto !important;
+
+clear: none !important;
+float: none !important;
+height: auto !important;
+max-height: none !important;
+max-width: none !important;
+min-height: 0 !important;
+min-width: 0 !important;
+visibility: visible !important;
+width: auto !important;
+
+bottom: auto !important;
+clip: auto !important;
+left: auto !important;
+overflow: auto !important;
+position: relative !important;
+right: auto !important;
+top: auto !important;
+vertical-align: top !important;
+z-index: 1 !important;
+
+color: #000 !important;
+direction: ltr !important;
+font: normal normal normal 11px/14px 'Helvetica Neue',Helvetica,Arial,sans-serif !important;
+font-size-adjust: none !important;
+font-stretch: normal !important;
+letter-spacing: normal !important;
+list-style: none !important;
+text-align: left !important;
+text-decoration: none !important;
+text-indent: 0 !important;
+text-shadow: none !important;
+text-transform: none !important;
+unicode-bidi: normal;
+white-space: normal !important;
+word-spacing: normal !important;
+
+border-collapse: collapse !important;
+border-spacing: 0 !important;
+caption-side: left !important;
+empty-cells: hide !important;
+table-layout: auto !important;
 }
 
-.kernjs_p em, .kernjs_p a {
+#kernjs_panel * { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
+
+#kernjs_panel {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-weight: 900 !important;
+    font-size: 16px !important;
+    text-transform: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    text-align: center !important;
+    height: auto !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    background: url(noise.png) #f1f1f1 !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    padding: 5px 0 !important;
+}
+
+#kernjs_transformSelect {
+  border: 1px solid #cacaca !important;
+  background-color: #FFF !important;
+  width: 274px !important;
+  height: auto !important;
+  display: inline-block;
+  margin: 10px !important;
+  -moz-border-radius: 9px !important;
+  -webkit-border-radius: 9px !important;
+  border-radius: 9px !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
+
+#kernjs_input {
+  margin: 5px 6px !important;
+  display: inline-block !important;
+  background-color: #e8e8e8 !important;
+  border: 1px solid rgba(0,0,0,0.15) !important;
+  width: 95% !important;
+  height: auto !important;
+  -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
+  -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
+  box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
+  -moz-border-radius: 6px !important;
+  -webkit-border-radius: 6px !important;
+  border-radius: 6px !important;
+}
+
+#kernjs_input button div {
+  background-image: url('controls.png') !important;
+  background-repeat: no-repeat !important;  
+  width: auto !important;
+  min-width: 34px !important;
+  height: auto !important;
+  min-height: 30px !important;
+  opacity: 0.9;
+}
+
+#kernjs_input button {
+  margin: 5px 0px 5px 5px !important;
+  padding: 2px 5px !important;
+  display: inline-block !important;
+  width: auto !important;
+  height: auto !important;
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border-radius: 3px !important;
+  border: 1px solid #e8e8e8 !important;
+}
+
+#kernjs_input button:last-child {
+  margin-right: 0 !important;
+}
+
+#kernjs_kern div {
+  background-position: 0 0 !important;
+}
+#kernjs_size div {
+  background-position: -35px 0 !important;
+}
+#kernjs_vert div {
+  background-position: -68px 0 !important;
+}
+#kernjs_angle div {
+  background-position: -103px 0 !important;
+}
+#kernjs_pos div {
+  background-position: -137px 0 !important;
+}
+
+#kernjs_p em, #kernjs_p a {
     font-weight: bold !important;
     font-style: normal !important;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
-.kernjs_p a:hover {
-    opacity: 0.7;
+#kernjs_p a:hover {
+    opacity: 0.7 !important;
 }
 
-.kernjs_button .btn span {
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    display: inline-block;
-    margin: 7px 0 0 0;
-    padding: 9px 20px;
-    background: url(noise.png) #333;
-    color: white;
-    font-weight: bold;
+#kernjs_panel #kernjs_transformSelect button {
+
 }
 
-.kernjs_button .btn span:hover {
-    background-color: #222;
+#kernjs_panel #kernjs_transformSelect button:hover {
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  background: #FFFFFF !important;
 }
 
-.kernjs_button .btn span:active {
-    background-color: #000;
+#kernjs_panel #kernjs_transformSelect button.active {
+    background-color: rgba(0,0,0,0.1) !important;
+    -webkit-box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.09),
+                        0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+    -moz-box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.09),
+                      0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+    box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.09),
+                0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+    background: linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%) !important;
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 100%) !important;
+    border: 1px solid rgba(0,0,0,0.2) !important;
+    border-top: 1px solid rgba(0,0,0,0.4) !important;
 }
 
-.kernjs_button a {
-    font-size: 12px;
-    margin: 0;
-    text-decoration: none;
-    padding: 0;
-    border: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-h1, h2, h3, h4, h5, h6, span, p, li {
-    cursor: pointer;
+#kernjs_panel #kernjs_unit section {
+  padding: 8px 2px 0 2px !important;
+  display: inline-block !important;
+	text-align: left !important;
+	font-weight: normal !important;
+	font-size: 13px !important;
 }
 
-.kernjs_unit section {
-    padding: 8px 2px 0 2px;
-    display: inline-block;
-	text-align: left;
-	font-weight: normal;
-	font-size: 13px;
+#kernjs_panel button:hover, #kernjs_panel button div:hover {
+  cursor: pointer !important;
 }
 
-.kernjs_panel input[type="button"] {
-    cursor: pointer;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    border: 1px solid rgba(0,0,0,0.2);
+#kernjs_dialogshade {
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    width: 100% !important;
+    z-index: 1000000 !important;
+    text-align: center !important;
+    overflow: none !important;
+    background: rgba(0,0,0,0.8) !important;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    color: #222 !important;
 }
 
-.kernjs_overlay {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    min-height: 100%;
-    width: 100%;
-    z-index: 100000000000000;
-    text-align: center;
-    overflow: none;
-    background: url(noise.png) rgba(0,0,0,0.85);
-    opacity: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #222;
+#kernjs_dialog {
+    position: absolute !important;
+    top: 0 !important;
+    z-index: 15000000 !important;
+    width: 760px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    background: white url(noise.png) !important;
+    -moz-box-shadow: 0 0 15px #000 !important;
+    -webit-box-shadow: 0 0 15px #000 !important;
+    box-shadow: 0 0 15px #000 !important;
 }
-.kernjs_container {
-    -moz-box-shadow: 0 0 15px #000;
-    -webit-box-shadow: 0 0 15px #000;
-    box-shadow: 0 0 15px #000;
-    background: url(noise.png) #f1f1f1; 
-    margin: 0 auto;
-    text-transform: none;
+
+.kernjs_activated {
+  border: 1px solid black !important;
 }
-.kernjs_instructions {
-    margin: 0 auto;
-    width: 540px;
-    padding: 40px;
+
+#kernjs_container {
+    width: 90% !important;
+    margin: 0 auto !important;
+    text-transform: none !important;
 }
-.kernjs_p {
-    font-size: 24px;
-    line-height: 32px;
-    color: #555;
-    text-shadow: 0 -1px 1px rgba(255,255,255,1);
+#kernjs_instructions {
+    margin: 0 auto !important;
+    width: 540px !important;
+    padding: 40px !important;
 }
-.kernjs_error {
+#kernjs_p em {
+    font-size: 76px !important;
+    line-height: 32px !important;
+    color: #555 !important;
+    text-shadow: 0 -1px 1px rgba(255,255,255,1) !important;
+}
+#kernjs_error {
     text-align: center !important;
 }
-.kernjs_success {
+#kernjs_success {
     text-align: left !important;
 }
-.kernjs_instructions a {
+#kernjs_container a {
     color: #009bd5 !important;
-    text-align: center !important
+    text-align: center !important;
 }
-.kernjs_instructions a:visited {
-    color: #009bd5 !important
+#kernjs_container a:visited {
+    color: #009bd5 !important;
 }
-.kernjs_instructions textarea {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100% !important;
-    height: 180px !important;
+#kernjs_container textarea {
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    width: 96% !important;
+    height: 60px !important;
     border: 1px solid #BBB !important;
+    background: white !important;
 }
-.kernjs_note {
-    font-size: 13px;
-    text-align: center;
+#kernjs_note {
+    font-size: 13px !important;
+    text-align: center !important;
 }
-.kernjs_style {
-    font-style: italic;
+#kernjs_style {
+    font-style: italic !important;
 }
-.kernjs_button {
-    list-style-type: none;
+#kernjs_button {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    list-style-type: none !important;
 }
-.kernjs_finish {
-    padding: 15px 0 20px 0;
-    text-align: center;
+#kernjs_finish {
+    padding: 15px 0 20px 0 !important;
+    text-align: center !important;
 }
-.kernjs_contact {
-    text-align: center;
-    font-size: 14px;
-    padding-bottom: 25px;
+#kernjs_contact {
+    text-align: center !important;
+    font-size: 14px !important;
+    padding-bottom: 25px !important;
 }
 
 #kernjs_logo {
-    padding-top: 10px;
+    padding-top: 10px !important;
 }
 
-.kernjs_overlay h6 {
+#kernjs_dialog h6 {
     color: white !important;
     margin: 0 !important;
     cursor: auto !important;
