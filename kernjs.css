@@ -51,6 +51,10 @@ empty-cells: hide !important;
 table-layout: auto !important;
 }
 
+.kernjs_activeEl {
+  opacity: .5;
+}
+
 #kernjs_panel * { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
 
 #kernjs_panel {
@@ -140,7 +144,7 @@ table-layout: auto !important;
 #kernjs_pos div {
   background-position: -137px 0 !important;
 }
-#kernjs_gobutton div {
+#kernjs_finish div {
   background-position: -170px 0 !important;
 }
 

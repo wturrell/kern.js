@@ -48,12 +48,8 @@
     html += '<button value="leading" id="kernjs_vert" name="kernjs_vert" /><div></div></button>';
     html += '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
     html += '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
-    html += '<button value="go" id="kernjs_gobutton" name="kernjs_gobutton" /><div></div></button>';
+    html += '<button value="go" id="kernjs_finish" name="kernjs_gobutton" /><div></div></button>';
     html += '</div>';
-    html += '</div>';
-
-    html += '<div id="kernjs_button">';
-    html += '<button id="kernjs_finish"><span>Finish Editing</span></button>';
     html += '</div>';
     html += '</div>';
 
@@ -232,10 +228,13 @@
         emRatio.detach(); // Retrieves the height value from emRatio, store it, and destroy emRatio since we don't need it anymore.
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " "; 
+
+
+		$(el).clone();
+
         
         if ($(el).attr('id')) { // If the clicked header has an ID...
           elid += "#" + $(el).attr('id') + " "; //...set elid to be a css string representation of the header's id (for example, "#myheader")
-          console.log(elid);
         }
 
         if ($) {
@@ -249,8 +248,13 @@
         });
 
         $(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
-          var adj, lastX, lastY, that;
+          var adj, lastX, lastY, that, original_color;
           activeEl = event.target; // Set activeEl to represent the clicked letter.
+          original_color = $(activeEl).css('color');
+          
+          $(".kernjs_activeEl").removeClass('kernjs_activeEl');
+          $(activeEl).addClass('kernjs_activeEl');
+          
           lastX = event.pageX;
           lastY = event.pageY;
           if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
