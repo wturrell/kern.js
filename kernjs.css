@@ -73,7 +73,7 @@ table-layout: auto !important;
 #kernjs_transformSelect {
   border: 1px solid #cacaca !important;
   background-color: #FFF !important;
-  width: 274px !important;
+  width: 328px !important;
   height: auto !important;
   display: inline-block;
   margin: 10px !important;
@@ -140,6 +140,10 @@ table-layout: auto !important;
 #kernjs_pos div {
   background-position: -137px 0 !important;
 }
+#kernjs_gobutton div {
+  background-position: -170px 0 !important;
+}
+
 
 #kernjs_p em, #kernjs_p a {
     font-weight: bold !important;

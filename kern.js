@@ -48,6 +48,7 @@
     html += '<button value="leading" id="kernjs_vert" name="kernjs_vert" /><div></div></button>';
     html += '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
     html += '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
+    html += '<button value="go" id="kernjs_gobutton" name="kernjs_gobutton" /><div></div></button>';
     html += '</div>';
     html += '</div>';
 
