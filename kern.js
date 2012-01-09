@@ -242,8 +242,6 @@
         elid += el.tagName.toLowerCase() + " "; 
         el.bounding_box = getTextNodeDimensions(el);
         
-        console.log(el.bounding_box);
-        
         $("<div id='kernjs_boundingbox'>").css({
           'height': el.bounding_box.height + 20,
           'width': el.bounding_box.width + 40,
