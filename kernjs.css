@@ -93,7 +93,7 @@ table-layout: auto !important;
   display: inline-block !important;
   background-color: #e8e8e8 !important;
   border: 1px solid rgba(0,0,0,0.15) !important;
-  width: 95% !important;
+  width: 96% !important;
   height: auto !important;
   -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
   -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
@@ -299,8 +299,10 @@ table-layout: auto !important;
 }
 
 #kernjs_boundingbox {
+  background: rgba(255,255,255,0.25);
+  
   pointer-events:none !important; 
   border: 1px solid rgba(0,0,0,0.1) !important;
-  border-radius: 3px !important;
+  border-radius: 6px !important;
   position: absolute !important;
 }

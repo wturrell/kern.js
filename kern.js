@@ -18,14 +18,14 @@
 (function($) {
   "use strict";
   function kern() {
-    var activeEl, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX, transformFlag = 'kerning',
+    var activeEl, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX,
+        transformFlag = 'kerning',
         altHold = 0,
         shiftHold = 0,
         location = "",
         unitFlag = "em",
         kerning = 0,
-        adjustments = {},
-        validElements = "div, section, p, ul, h1, h2, h3, h4, h5, h6, span, li"; // validElements stores the list of elements that Compositor will manipulte.
+        adjustments = {};
 
     thePanelLocation = location + "kernjs.css";
 
@@ -245,10 +245,10 @@
         console.log(el.bounding_box);
         
         $("<div id='kernjs_boundingbox'>").css({
-          'height': el.bounding_box.height,
-          'width': el.bounding_box.width,
-          'top': el.bounding_box.top,
-          'left': el.bounding_box.left,
+          'height': el.bounding_box.height + 20,
+          'width': el.bounding_box.width + 40,
+          'top': el.bounding_box.top - 10,
+          'left': el.bounding_box.left - 20,
         }).appendTo($("body"));
         
         if ($(el).attr('id')) { // If the clicked header has an ID...
@@ -268,8 +268,8 @@
         $(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
           var adj, lastX, lastY, that, original_color;
           activeEl = event.target; // Set activeEl to represent the clicked letter.
-          original_color = $(activeEl).css('color');
-          
+          original_color = $(activeEl).css('opacity');
+          $(el).children().css('opacity',original_color);
           $(activeEl).css({
             'opacity': '.5'
           });
@@ -315,10 +315,10 @@
             
             el.bounding_box = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
             $("#kernjs_boundingbox").css({
-              'height': el.bounding_box.height,
-              'width': el.bounding_box.width,
-              'top': el.bounding_box.top,
-              'left': el.bounding_box.left,
+              'height': el.bounding_box.height + 20,
+              'width': el.bounding_box.width + 40,
+              'top': el.bounding_box.top - 10,
+              'left': el.bounding_box.left - 20,
             });
             
           }

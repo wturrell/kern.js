@@ -15,6 +15,7 @@ h1, h2, h3 {
 #container {
 	margin: 0 auto;
 	text-align: center;
+  margin-top: 16em;
 }
 
 #content {
