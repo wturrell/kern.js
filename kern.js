@@ -41,16 +41,16 @@
     $(thePanel).css('opacity', '0');
 
     html = '<div class="kernjs_panel" id="kernjs_panel">';
-    html += '<div id="kernjs_transformSelect">';
-    html += '<div id="kernjs_input">';
-    html += '<button value="kerning" class="active" id="kernjs_kern" name="kernjs_kern" /><div></div></button>';
-    html += '<button value="size" id="kernjs_size" name="kernjs_size" /><div></div></button>';
-    html += '<button value="leading" id="kernjs_vert" name="kernjs_vert" /><div></div></button>';
-    html += '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
-    html += '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
-    html += '<button value="go" id="kernjs_finish" name="kernjs_gobutton" /><div></div></button>';
-    html += '</div>';
-    html += '</div>';
+    html +=   '<div id="kernjs_transformSelect">';
+    html +=     '<div id="kernjs_input">';
+    html +=       '<button value="kerning" class="active" id="kernjs_kern" name="kernjs_kern" /><div></div></button>';
+    html +=       '<button value="size" id="kernjs_size" name="kernjs_size" /><div></div></button>';
+    html +=       '<button value="leading" id="kernjs_vert" name="kernjs_vert" /><div></div></button>';
+    html +=       '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
+    html +=       '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
+    html +=       '<button value="go" id="kernjs_finish" name="kernjs_gobutton" /><div></div></button>';
+    html +=     '</div>';
+    html +=   '</div>';
     html += '</div>';
 
     thePanel.innerHTML = html;
@@ -171,6 +171,18 @@
       }
       return '\t' + css.join('\n\t');
     };
+    
+    function getTextNodeDimensions(textNode) {
+        var rect = {};
+        if (document.createRange) {
+            var range = document.createRange();
+            range.selectNodeContents(textNode);
+            if (range.getBoundingClientRect) {
+                rect = range.getBoundingClientRect();
+            }
+        }
+        return rect;
+    }
 
     // This function takes the stored adjustment data and constructs formatted CSS from it.
     function generateCSS(adjustments, emPx, unitFlag) {
@@ -218,7 +230,7 @@
     }
     
     $("h1, h2, h3, h4, h5, h6").click(function (event) { // Activate a word
-      var emRatio, el, previousColor, theHtml, elid;
+      var emRatio, el, previousColor, theHtml, bounding_box, elid, elcopy, elpos;
       elid = ""; // if the user clicks on a header element with an ID, elid is set to be equal to the ID of the header element.
       event.preventDefault(); // Prevent headers that are also links from following the URL while Kern.JS is active.
       if (activeHeader !== this) {
@@ -228,10 +240,16 @@
         emRatio.detach(); // Retrieves the height value from emRatio, store it, and destroy emRatio since we don't need it anymore.
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " "; 
-
-
-		$(el).clone();
-
+        el.bounding_box = getTextNodeDimensions(el);
+        
+        console.log(el.bounding_box);
+        
+        $("<div id='kernjs_boundingbox'>").css({
+          'height': el.bounding_box.height,
+          'width': el.bounding_box.width,
+          'top': el.bounding_box.top,
+          'left': el.bounding_box.left,
+        }).appendTo($("body"));
         
         if ($(el).attr('id')) { // If the clicked header has an ID...
           elid += "#" + $(el).attr('id') + " "; //...set elid to be a css string representation of the header's id (for example, "#myheader")
@@ -252,8 +270,9 @@
           activeEl = event.target; // Set activeEl to represent the clicked letter.
           original_color = $(activeEl).css('color');
           
-          $(".kernjs_activeEl").removeClass('kernjs_activeEl');
-          $(activeEl).addClass('kernjs_activeEl');
+          $(activeEl).css({
+            'opacity': '.5'
+          });
           
           lastX = event.pageX;
           lastY = event.pageY;
@@ -292,6 +311,16 @@
               adjustments[elid + "." + $(activeEl).attr("class")] = adj;
               generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
             }
+            
+            
+            el.bounding_box = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
+            $("#kernjs_boundingbox").css({
+              'height': el.bounding_box.height,
+              'width': el.bounding_box.width,
+              'top': el.bounding_box.top,
+              'left': el.bounding_box.left,
+            });
+            
           }
           $(this).bind('mousemove', MoveHandler);
           $(this).mouseup(function (event) {
