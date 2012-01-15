@@ -40,6 +40,8 @@
     thePanel.setAttribute("class", "kernjs_panel");
     $(thePanel).css('opacity', '0');
 
+    $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"><div id="kernjs_dialog">').appendTo($("body"));
+
     html = '<div class="kernjs_panel" id="kernjs_panel">';
     html +=   '<div id="kernjs_transformSelect">';
     html +=     '<div id="kernjs_input">';
@@ -48,16 +50,15 @@
     html +=       '<button value="leading" id="kernjs_vert" name="kernjs_vert" /><div></div></button>';
     html +=       '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
     html +=       '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
-    html +=       '<button value="go" id="kernjs_finish" name="kernjs_gobutton" /><div></div></button>';
     html +=     '</div>';
+    html +=       '<button value="go" id="kernjs_complete" name="kernjs_gobutton" /><div></div></button>';
     html +=   '</div>';
     html += '</div>';
 
     thePanel.innerHTML = html;
     $("body").prepend(thePanel);
 
-    $("#kernjs_panel") // push down content below kernjs_panel
-    .after($("<div id='spacer'></div>").css('height', $(".kernjs_panel").css("height")));
+    $("#kernjs_panel").after($("<div id='spacer'></div>").css('height', $(".kernjs_panel").css("height")));
 
     $(".kernjs_panel").animate({
       opacity: 1
@@ -172,7 +173,7 @@
       return '\t' + css.join('\n\t');
     };
     
-    function getTextNodeDimensions(textNode) {
+    function getTextNodeDimensions(textNode) { // Helper function for creating the bounding box overlay around activeEl
         var rect = {};
         if (document.createRange) {
             var range = document.createRange();
@@ -186,9 +187,9 @@
 
     // This function takes the stored adjustment data and constructs formatted CSS from it.
     function generateCSS(adjustments, emPx, unitFlag) {
-      var x, concatCSS, theCSS = [],
-        adj;
+      var x, concatCSS, adj, theCSS = [];
       for (x in adjustments) {
+        if(typeof(x) === 'undefined') break;
         if (adjustments.hasOwnProperty(x)) {
           adj = adjustments[x];
           concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}'].join('\n');
@@ -243,9 +244,9 @@
         el.bounding_box = getTextNodeDimensions(el);
         
         $("<div id='kernjs_boundingbox'>").css({
-          'height': el.bounding_box.height + 20,
+          'height': el.bounding_box.height - 40,
           'width': el.bounding_box.width + 40,
-          'top': el.bounding_box.top - 10,
+          'top': el.bounding_box.top + 20,
           'left': el.bounding_box.left - 20,
         }).appendTo($("body"));
         
@@ -313,9 +314,9 @@
             
             el.bounding_box = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
             $("#kernjs_boundingbox").css({
-              'height': el.bounding_box.height + 20,
+              'height': el.bounding_box.height - 40,
               'width': el.bounding_box.width + 40,
-              'top': el.bounding_box.top - 10,
+              'top': el.bounding_box.top + 20,
               'left': el.bounding_box.left - 20,
             });
             
@@ -367,11 +368,18 @@
       }
     });
 
-    outputPanel = $("#kernjs_panel button#kernjs_finish").mouseup(function () {
-      var outputPanel, outputHTML = '';
-      outputPanel = document.createElement("div");
-      outputPanel.setAttribute("id", "kernjs_dialog");
-
+    $("#kernjs_complete").mousedown(function () {
+      var outputHTML = '';
+      
+      var transitionEnd = "TransitionEnd";
+      if ($.browser.webkit) {
+      	transitionEnd = "webkitTransitionEnd";
+      } else if ($.browser.mozilla) {
+      	transitionEnd = "transitionend";
+      } else if ($.browser.opera) {
+      	transitionEnd = "oTransitionEnd";
+      }
+      
       if (activeEl) {
         outputHTML += '<div id="kernjs_container">';
         outputHTML += '<div id="kernjs_p"><em>Looks awesome.</em></div><br/>';
@@ -385,21 +393,17 @@
         outputHTML += '<button id="kernjs_finish"><span class="kernjs_close" id="kernjs_continue">Try again.</span></button>';
         outputHTML += '</div>';
       }
-
-      $(outputPanel).html(outputHTML);
-      $("body").append('<div id="kernjs_overlay"><div id="kernjs_dialogshade">');
-      $("#kernjs_dialogshade").after($(outputPanel));
-
-      $("#kernjs_dialogshade").bind('click', function () {
-        $("#kernjs_overlay").fadeOut(function () {
-          $(this).detach();
+      
+      $("<div id='kernjs_dialog'>").html(outputHTML).appendTo($("#kernjs_overlay"));
+      
+      $("#kernjs_overlay").attr('style', 'height: 100% !important; opacity: 1 !important');
+      
+      $("#kernjs_dialogshade").bind('click', function() {
+        $("#kernjs_overlay").bind(transitionEnd, function() { 
+            $(this).css('height', '0% !important');
+            $(this).unbind(transitionEnd);
         });
-      });
-
-      $(".kernjs_close").click(function () {
-        $("#kernjs_overlay").fadeOut(function () {
-          $(this).detach();
-        });
+        $("#kernjs_overlay").css({ opacity: "0 !important" });
       });
     });
   }
