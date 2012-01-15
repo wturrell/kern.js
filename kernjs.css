@@ -320,7 +320,7 @@ button#kernjs_complete {
     top: 0 !important;
     z-index: 15000000 !important;
     width: 760px !important;
-    height: auto !important;
+    height: 300px !important;
     display: block !important;
     margin: 0 auto !important;
     background: white url(noise.png) !important;

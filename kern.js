@@ -189,7 +189,7 @@
     function generateCSS(adjustments, emPx, unitFlag) {
       var x, concatCSS, adj, theCSS = [];
       for (x in adjustments) {
-        if(typeof(x) === 'undefined') break;
+        if(!x) return false;
         if (adjustments.hasOwnProperty(x)) {
           adj = adjustments[x];
           concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}'].join('\n');
@@ -241,9 +241,9 @@
         emRatio.detach(); // Retrieves the height value from emRatio, store it, and destroy emRatio since we don't need it anymore.
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " "; 
-        el.bounding_box = getTextNodeDimensions(el);
-        
-        $("<div id='kernjs_boundingbox'>").css({
+
+        el.bounding_box = getTextNodeDimensions(el);        
+        $("<div id='kernjs_boundingbox'>").css({ // Creates the bounding box with some manual correction for whitespace.
           'height': el.bounding_box.height - 40,
           'width': el.bounding_box.width + 40,
           'top': el.bounding_box.top + 20,
@@ -267,12 +267,6 @@
         $(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
           var adj, lastX, lastY, that, original_color;
           activeEl = event.target; // Set activeEl to represent the clicked letter.
-          original_color = $(activeEl).css('opacity');
-          $(el).children().css('opacity',original_color);
-          $(activeEl).css({
-            'opacity': '.5'
-          });
-          
           lastX = event.pageX;
           lastY = event.pageY;
           if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
@@ -408,9 +402,9 @@
       
       $("#kernjs_dialogshade").bind('click', function() {
         $("#kernjs_dialog").css({
-          '-webkit-transform': 'scale(0.8) !important',
-          '-moz-transform': 'scale(0.8) !important',
-          'transform': 'scale(0.8) !important'
+          '-webkit-transform': 'scale(1.1) !important',
+          '-moz-transform': 'scale(1.1) !important',
+          'transform': 'scale(1.1) !important'
         });
         $("#kernjs_overlay").bind(transitionEnd, function() { 
             $(this).unbind(transitionEnd);
