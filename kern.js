@@ -18,7 +18,7 @@
 (function($) {
   "use strict";
   function kern() {
-    var activeEl, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX,
+    var activeEl, creatediv, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX,
         transformFlag = 'kerning',
         altHold = 0,
         shiftHold = 0,
@@ -40,7 +40,7 @@
     thePanel.setAttribute("class", "kernjs_panel");
     $(thePanel).css('opacity', '0');
 
-    $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"><div id="kernjs_dialog">').appendTo($("body"));
+    $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"></div><div id="kernjs_dialog">').appendTo($("body"));
 
     html = '<div class="kernjs_panel" id="kernjs_panel">';
     html +=   '<div id="kernjs_transformSelect">';
@@ -370,8 +370,8 @@
 
     $("#kernjs_complete").mousedown(function () {
       var outputHTML = '';
-      
       var transitionEnd = "TransitionEnd";
+      
       if ($.browser.webkit) {
       	transitionEnd = "webkitTransitionEnd";
       } else if ($.browser.mozilla) {
@@ -394,13 +394,13 @@
         outputHTML += '</div>';
       }
       
-      $("<div id='kernjs_dialog'>").html(outputHTML).appendTo($("#kernjs_overlay"));
+      $("#kernjs_dialog").html(outputHTML).appendTo($("#kernjs_overlay"));
       
       $("#kernjs_overlay").attr('style', 'height: 100% !important; opacity: 1 !important');
       
       $("#kernjs_dialogshade").bind('click', function() {
         $("#kernjs_overlay").bind(transitionEnd, function() { 
-            $(this).css('height', '0% !important');
+            $(this).css('height','0 !important');
             $(this).unbind(transitionEnd);
         });
         $("#kernjs_overlay").css({ opacity: "0 !important" });
