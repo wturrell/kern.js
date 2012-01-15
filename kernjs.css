@@ -330,7 +330,7 @@ button#kernjs_complete {
 }
 
 #kernjs_overlay, #kernjs_overlay * {
-  -moz-transition: opacity .5s ease !important;
-  -webkit-transition: opacity .5s ease !important;
-  transition: opacity .5s ease !important;
+  -moz-transition: opacity .5s ease, -moz-transform .5s ease !important;
+  -webkit-transition: opacity .5s ease, -webkit-transform .5s ease !important;
+  transition: opacity .5s ease, transform .5s ease !important;
 }

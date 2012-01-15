@@ -396,12 +396,25 @@
       
       $("#kernjs_dialog").html(outputHTML).appendTo($("#kernjs_overlay"));
       
-      $("#kernjs_overlay").attr('style', 'height: 100% !important; opacity: 1 !important');
+      $("#kernjs_overlay").css({
+        'height': '100% !important',
+        'opacity': '1 !important'
+      });
+      $("#kernjs_dialog").css({
+        '-webkit-transform': 'scale(1) !important',
+        '-moz-transform': 'scale(1) !important',
+        'transform': 'scale(1) !important'
+      });
       
       $("#kernjs_dialogshade").bind('click', function() {
+        $("#kernjs_dialog").css({
+          '-webkit-transform': 'scale(0.8) !important',
+          '-moz-transform': 'scale(0.8) !important',
+          'transform': 'scale(0.8) !important'
+        });
         $("#kernjs_overlay").bind(transitionEnd, function() { 
-            $(this).css('height','0 !important');
             $(this).unbind(transitionEnd);
+            $("#kernjs_overlay").css({ height: "0 !important" });
         });
         $("#kernjs_overlay").css({ opacity: "0 !important" });
       });
