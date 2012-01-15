@@ -57,7 +57,7 @@ table-layout: auto !important;
 
 #panel.kernjs_panel {
   border-bottom: 1px solid #cacaca !important;
-  height: 5px !important;
+  height: 3px !important;
 }
 
 #kernjs_panel * { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
@@ -82,36 +82,27 @@ table-layout: auto !important;
   border-right: 1px solid #cacaca !important;
   border-bottom: 1px solid #cacaca !important;
   background-color: #FFF !important;
-  width: 345px !important;
+  width: 332px !important;
   height: auto !important;
   display: inline-block !important;
-  -moz-border-bottom-left-radius: 9px !important;
-  -moz-border-bottom-right-radius: 9px !important;
-  -webkit-border-bottom-left-radius: 9px !important;
-  -webkit-border-bottom-right-radius: 9px !important;
-  border-bottom-left-radius: 9px !important;
-  border-bottom-right-radius: 9px !important;
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
   overflow: hidden !important;
   margin: 0 auto !important;
-  margin-top: 5px !important;
+  margin-top: 3px !important;
 }
 
 #kernjs_input {
-  margin: 0px 6px 5px 6px !important;
+  margin: 0px 3px 3px 3px !important;
   display: inline-block !important;
   background-color: #e8e8e8 !important;
   border: 1px solid rgba(0,0,0,0.15) !important;
-  width: 255px !important;
+  width: 260px !important;
   height: auto !important;
   -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
   -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
   box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.75) !important;
-  -moz-border-bottom-left-radius: 6px !important;
-  -webkit-border-bottom-left-radius: 6px !important;
-  border-bottom-left-radius: 6px !important;
-  -moz-border-bottom-right-radius: 6px !important;
-  -webkit-border-bottom-right-radius: 6px !important;
-  border-bottom-right-radius: 6px !important;
+  border-radius: 4px !important;
 }
 
 #kernjs_transformSelect button div {
@@ -125,19 +116,35 @@ table-layout: auto !important;
 }
 
 #kernjs_input button {
-  margin: 5px 0px 5px 5px !important;
+  margin: 3px 0px 3px 5px !important;
   padding: 2px 5px !important;
   display: inline-block !important;
   width: auto !important;
   height: auto !important;
-  -moz-border-radius: 3px !important;
-  -webkit-border-radius: 3px !important;
-  border-radius: 3px !important;
+  -moz-border-radius: 2px !important;
+  -webkit-border-radius: 2px !important;
   border: 1px solid #e8e8e8 !important;
 }
 
 button#kernjs_complete {
-  
+  display: inline-block !important;
+  width: 61px !important;
+  height: 44px !important;
+  border: 1px solid #cfcfcf !important;
+  border-radius: 4px !important;
+  background-color: rgba(0,0,0,0) !important;
+  -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.1),
+                      0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+  -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.1),
+                    0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+  box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.1),
+              0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 100%) !important;
+  background: linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%) !important;
+
+  border: 1px solid rgba(0,0,0,0.2) !important;
+  border-top: 1px solid rgba(0,0,0,0.3) !important;
 }
 
 #kernjs_input button:last-child {
@@ -160,7 +167,7 @@ button#kernjs_complete {
   background-position: -137px 0 !important;
 }
 #kernjs_complete div {
-  background-position: -170px 0 !important;
+  background-position: -193px 0 !important;
 }
 
 #kernjs_p em, #kernjs_p a {
@@ -175,21 +182,23 @@ button#kernjs_complete {
 
 #kernjs_panel #kernjs_transformSelect button:hover {
   border: 1px solid rgba(0,0,0,0.25) !important;
-  background: #FFFFFF !important;
+  background: rgba(255,255,255,1) !important;
 }
 
 #kernjs_panel #kernjs_transformSelect button.active {
-    background-color: rgba(0,0,0,0.1) !important;
-    -webkit-box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.09),
+    background-color: rgba(0,0,0,0) !important;
+    -webkit-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.1),
                         0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
-    -moz-box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.09),
+    -moz-box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.1),
                       0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
-    box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.09),
+    box-shadow: inset 0px 0px 3px 0px rgba(0, 0, 0, 0.1),
                 0px 0px 5px 1px rgba(255, 255, 255, 1) !important;
+
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 100%) !important;
     background: linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%) !important;
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 100%) !important;
+
     border: 1px solid rgba(0,0,0,0.2) !important;
-    border-top: 1px solid rgba(0,0,0,0.4) !important;
+    border-top: 1px solid rgba(0,0,0,0.3) !important;
 }
 
 #kernjs_panel #kernjs_unit section {

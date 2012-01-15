@@ -64,8 +64,8 @@
       opacity: 1
     });
 
-    $("#kernjs_transformSelect button").click(function () {
-      $("#kernjs_transformSelect button").removeClass('active');
+    $("#kernjs_input button").click(function () {
+      $("#kernjs_input button").removeClass('active');
       transformFlag = $(this).addClass('active').attr('value');
     });
 
@@ -362,7 +362,7 @@
       }
     });
 
-    $("#kernjs_complete").mousedown(function () {
+    $("#kernjs_complete").click(function () {
       var outputHTML = '';
       var transitionEnd = "TransitionEnd";
       
@@ -402,9 +402,9 @@
       
       $("#kernjs_dialogshade").bind('click', function() {
         $("#kernjs_dialog").css({
-          '-webkit-transform': 'scale(1.1) !important',
-          '-moz-transform': 'scale(1.1) !important',
-          'transform': 'scale(1.1) !important'
+          '-webkit-transform': 'scale(1.03) !important',
+          '-moz-transform': 'scale(1.03) !important',
+          'transform': 'scale(1.03) !important'
         });
         $("#kernjs_overlay").bind(transitionEnd, function() { 
             $(this).unbind(transitionEnd);
