@@ -376,7 +376,7 @@
       
       if (activeEl) {
         outputHTML += '<div id="kernjs_container">';
-        outputHTML += '<div id="kernjs_p"><em>Looks awesome.</em></div><br/>';
+        outputHTML += '<div id="kernjs_p"></div><br/>';
         outputHTML += '<textarea>' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
         outputHTML += '<button class="kernjs_close" id="kernjs_continue"><span>Continue Editing</span></button>';
         outputHTML += '<div id="kernjs_contact">Please email <a class="kernjs_style" href="mailto:contact@kernjs.com">contact@kernjs.com</a> if you have any trouble</div>';

@@ -248,17 +248,17 @@ button#kernjs_complete {
     color: #009bd5 !important;
 }
 #kernjs_container textarea {
+    font-family: 'American Typewriter', 'Courier New', Courier !important;
+    font-size: 12px !important;
+    text-shadow: 0 1px 0 white !important;
     -webkit-border-radius: 5px !important;
     -moz-border-radius: 5px !important;
     border-radius: 5px !important;
-    padding: 10px !important;
-    width: 96% !important;
-    height: 60px !important;
-    border: 1px solid #BBB !important;
-    background: white !important;
+    padding: 20px !important;
     width: 242px !important;
     height: 335px !important;
     float: right !important;
+    background: url(textarea.png) no-repeat !important;
 }
 #kernjs_note {
     font-size: 13px !important;
@@ -333,12 +333,12 @@ button#kernjs_complete {
     top: 0 !important;
     left: 50% !important;
     z-index: 15000000 !important;
-    width: 600px !important;
-    height: 420px !important;
+    width: 618px !important;
+    height: 438px !important;
     display: block !important;
     margin: 0 auto !important;
     margin-left: -300px !important;
-    background: white url(noise.png) !important;
+    background: url(dialog.png) no-repeat !important;
     -moz-box-shadow: 0 0 15px #000 !important;
     -webit-box-shadow: 0 0 15px #000 !important;
     box-shadow: 0 0 15px #000 !important;
