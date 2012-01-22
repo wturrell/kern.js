@@ -189,11 +189,12 @@
     function generateCSS(adjustments, emPx, unitFlag) {
       var x, concatCSS, adj, theCSS = [];
       for (x in adjustments) {
-        if(!x) return false;
         if (adjustments.hasOwnProperty(x)) {
           adj = adjustments[x];
-          concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}'].join('\n');
-          theCSS = theCSS + '\n' + concatCSS;
+          if(x !== '.undefined') {
+            concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}'].join('\n');
+            theCSS = theCSS + '\n' + concatCSS;
+          }
         }
       }
       return theCSS;
@@ -265,6 +266,8 @@
         });
 
         $(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
+          console.log(event.target.tagName);
+          if(event.target.tagName !== 'SPAN') { return false; }
           var adj, lastX, lastY, that, original_color;
           activeEl = event.target; // Set activeEl to represent the clicked letter.
           lastX = event.pageX;
