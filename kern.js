@@ -247,7 +247,7 @@
         $("<div id='kernjs_boundingbox'>").css({ // Creates the bounding box with some manual correction for whitespace.
           'height': el.bounding_box.height - 40,
           'width': el.bounding_box.width + 40,
-          'top': el.bounding_box.top + 40,
+          'top': el.bounding_box.top + 20,
           'left': el.bounding_box.left - 20,
         }).appendTo($("body"));
         
@@ -302,7 +302,7 @@
             $("#kernjs_boundingbox").css({
               'height': el.bounding_box.height - 40,
               'width': el.bounding_box.width + 40,
-              'top': el.bounding_box.top + 40,
+              'top': el.bounding_box.top + 20,
               'left': el.bounding_box.left - 20,
             }); 
           }
