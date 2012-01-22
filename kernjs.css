@@ -247,10 +247,17 @@ button#kernjs_complete {
 #kernjs_container a:visited {
     color: #009bd5 !important;
 }
+
 #kernjs_container textarea {
+    width: 220px !important;
+    height: 315px !important;
+    resize: none !important;
     font-family: 'American Typewriter', 'Courier New', Courier !important;
     font-size: 12px !important;
     text-shadow: 0 1px 0 white !important;
+}
+
+#kernjs_container #kernjs_p {
     -webkit-border-radius: 5px !important;
     -moz-border-radius: 5px !important;
     border-radius: 5px !important;

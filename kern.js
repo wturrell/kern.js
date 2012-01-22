@@ -18,7 +18,7 @@
 (function($) {
   "use strict";
   function kern() {
-    var activeEl, creatediv, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX,
+    var activeEl, thePanel, thePanelLocation, panelCss, outputPanel, html, activeHeader, emPx, lastX,
         transformFlag = 'kerning',
         altHold = 0,
         shiftHold = 0,
@@ -51,9 +51,9 @@
     html +=       '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
     html +=       '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
     html +=     '</div>';
-    html +=       '<button value="go" id="kernjs_complete" name="kernjs_gobutton" /><div></div></button>';
     html +=   '</div>';
     html += '</div>';
+    html +=       '<button value="go" id="kernjs_complete" name="kernjs_gobutton" /><div></div></button>';
 
     thePanel.innerHTML = html;
     $("body").prepend(thePanel);
@@ -86,7 +86,7 @@
       this.angle = 0;
       this.element.css('position', 'relative'); // make position relative
       this.element.css('display', 'inline-block'); // make position relative
-      this.element.css('vertical-align', 'top'); // prevents 
+      this.element.css('vertical-align', 'top'); // prevents something horrible from happening.
     }
     
     // alias .fn to .prototype
@@ -232,7 +232,7 @@
     }
     
     $("h1, h2, h3, h4, h5, h6").click(function (event) { // Activate a word
-      var emRatio, el, previousColor, theHtml, bounding_box, elid, elcopy, elpos;
+      var emRatio, el, previousColor, theHtml, bounding_box, elid;
       elid = ""; // if the user clicks on a header element with an ID, elid is set to be equal to the ID of the header element.
       event.preventDefault(); // Prevent headers that are also links from following the URL while Kern.JS is active.
       if (activeHeader !== this) {
@@ -247,7 +247,7 @@
         $("<div id='kernjs_boundingbox'>").css({ // Creates the bounding box with some manual correction for whitespace.
           'height': el.bounding_box.height - 40,
           'width': el.bounding_box.width + 40,
-          'top': el.bounding_box.top + 20,
+          'top': el.bounding_box.top + 40,
           'left': el.bounding_box.left - 20,
         }).appendTo($("body"));
         
@@ -265,18 +265,8 @@
           };
         });
 
-        $(window).mousedown(function (event) { // Listens for clicks on the newly created span objects.
-          console.log(event.target.tagName);
-          if(event.target.tagName !== 'SPAN') { return false; }
+        $(window).mousedown(function (event) { // Listens for clicks on the entire document. Currently problematic.
           var adj, lastX, lastY, that, original_color;
-          activeEl = event.target; // Set activeEl to represent the clicked letter.
-          lastX = event.pageX;
-          lastY = event.pageY;
-          if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
-            adjustments[elid + "." + $(activeEl).attr("class")] = new Adjustment($(activeEl));
-          }
-          adj = adjustments[elid + "." + $(activeEl).attr("class")];
-
           function MoveHandler(event) {
             var moveX = event.pageX - lastX,
               moveY = event.pageY - lastY,
@@ -307,21 +297,29 @@
               adjustments[elid + "." + $(activeEl).attr("class")] = adj;
               generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
             }
-            
-            
             el.bounding_box = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
+            
             $("#kernjs_boundingbox").css({
               'height': el.bounding_box.height - 40,
               'width': el.bounding_box.width + 40,
-              'top': el.bounding_box.top + 20,
+              'top': el.bounding_box.top + 40,
               'left': el.bounding_box.left - 20,
-            });
-            
+            }); 
           }
-          $(this).bind('mousemove', MoveHandler);
-          $(this).mouseup(function (event) {
-            $(this).unbind('mousemove', MoveHandler);
-          });
+          
+          if($.contains(el, event.target)) {
+            activeEl = event.target; // Set activeEl to represent the clicked letter.
+            lastX = event.pageX;
+            lastY = event.pageY;
+            if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
+              adjustments[elid + "." + $(activeEl).attr("class")] = new Adjustment($(activeEl));
+            }
+            adj = adjustments[elid + "." + $(activeEl).attr("class")];
+            $(this).bind('mousemove', MoveHandler);
+            $(this).mouseup(function (event) {
+              $(this).unbind('mousemove', MoveHandler);
+            });
+          }
         });
         // end el click
       }
@@ -377,10 +375,11 @@
       	transitionEnd = "oTransitionEnd";
       }
       
-      if (activeEl) {
+      if (activeEl) {  
         outputHTML += '<div id="kernjs_container">';
-        outputHTML += '<div id="kernjs_p"></div><br/>';
-        outputHTML += '<textarea>' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
+        outputHTML +=   '<div id="kernjs_p">';
+        outputHTML +=     '<textarea>' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
+        outputHTML +=   '</div><br/>';
         outputHTML += '<button class="kernjs_close" id="kernjs_continue"><span>Continue Editing</span></button>';
         outputHTML += '<div id="kernjs_contact">Please email <a class="kernjs_style" href="mailto:contact@kernjs.com">contact@kernjs.com</a> if you have any trouble</div>';
         outputHTML += '</div';
