@@ -297,6 +297,7 @@
               adjustments[elid + "." + $(activeEl).attr("class")] = adj;
               generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
             }
+            
             el.bounding_box = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
             
             $("#kernjs_boundingbox").css({
@@ -305,8 +306,7 @@
               'top': el.bounding_box.top + 20,
               'left': el.bounding_box.left - 20,
             }); 
-          }
-          
+          }         
           if($.contains(el, event.target)) {
             activeEl = event.target; // Set activeEl to represent the clicked letter.
             lastX = event.pageX;
