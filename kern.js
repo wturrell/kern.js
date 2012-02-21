@@ -380,14 +380,13 @@
         outputHTML +=   '<div id="kernjs_p">';
         outputHTML +=     '<textarea>' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
         outputHTML +=   '</div><br/>';
-        outputHTML += '<button class="kernjs_close" id="kernjs_continue"><span>Continue Editing</span></button>';
-        outputHTML += '<div id="kernjs_contact">Please email <a class="kernjs_style" href="mailto:contact@kernjs.com">contact@kernjs.com</a> if you have any trouble</div>';
         outputHTML += '</div';
       } else {
         outputHTML += '<div id="kernjs_container">';
-        outputHTML += '<div id="kernjs_error"><em>Oops.</em> It looks like you haven\'t made any adjustments yet.</div>';
-        outputHTML += '<button id="kernjs_finish"><span class="kernjs_close" id="kernjs_continue">Try again.</span></button>';
-        outputHTML += '</div>';
+        outputHTML +=   '<div id="kernjs_p">';
+        outputHTML +=     '<textarea>' + 'You haven\'t made any adjustments yet.' + '</textarea>';
+        outputHTML +=   '</div><br/>';
+        outputHTML += '</div';
       }
       
       $("#kernjs_dialog").html(outputHTML).appendTo($("#kernjs_overlay"));
