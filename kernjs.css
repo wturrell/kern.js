@@ -255,9 +255,13 @@ button#kernjs_complete {
     width: 100% !important;
     height: 100% !important;
     padding: 40px 0 40px 40px !important;
+    color: rgba(0,0,0,0.5) !important;
+    text-shadow: 0 1px 0 rgba(255,255,255,1) !important;
+    background: url(paper.png) !important;
+    line-height: 24px !important;
     font-family: 'American Typewriter', 'Courier New', Courier !important;
-    font-size: 12px !important;
-    text-shadow: 0 1px 0 white !important;
+    font-size: 18px !important;
+    text-shadow: 0 -1px 0 white !important;
 }
 
 #kernjs_container #kernjs_p {

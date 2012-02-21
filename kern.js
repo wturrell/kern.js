@@ -362,7 +362,12 @@
         }
       }
     });
-
+    
+    $("#kernjs_textarea").live('click', function () {
+      $(this).focus();
+      $(this).select();
+    });
+    
     $("#kernjs_complete").click(function () {
       var outputHTML = '';
       var transitionEnd = "TransitionEnd";
@@ -378,7 +383,7 @@
       if (activeEl) {  
         outputHTML += '<div id="kernjs_container">';
         outputHTML +=   '<div id="kernjs_p">';
-        outputHTML +=     '<textarea>' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
+        outputHTML +=     '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
         outputHTML +=   '</div><br/>';
         outputHTML += '</div';
       } else {
