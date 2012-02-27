@@ -263,7 +263,10 @@
           theHtml = splitter($(el)); // Call method from Lettering.js. This method splits up the clicked body of text into <span> elements containing single letters.
         }
 
-        $(this).attr('unselectable', 'on').css('-moz-user-select', 'none').each(function () {
+        $(this).attr('unselectable', 'on').css({
+          '-moz-user-select': 'none',
+          '-webkit-user-select': 'none'
+        }).each(function () {
           this.onselectstart = function () {
             return false;
           };
@@ -271,6 +274,10 @@
 
         $(window).mousedown(function (event) { // Listens for clicks on the entire document. Currently problematic.
           var adj, lastX, lastY, that, original_color;
+
+          original_color = $(event.target).css('color');
+          console.log(original_color);
+
           function MoveHandler(event) {
             var moveX = event.pageX - lastX,
               moveY = event.pageY - lastY,
