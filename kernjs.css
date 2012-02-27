@@ -51,11 +51,19 @@ empty-cells: hide !important;
 table-layout: auto !important;
 }
 
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url('http://themes.googleusercontent.com/static/fonts/ubuntumono/v3/ViZhet7Ak-LRXZMXzuAfkbrIa-7acMAeDBVuclsi6Gc.woff') format('woff');
+}
+
 .kernjs_activeEl {
   opacity: .5;
 }
 
 #panel.kernjs_panel {
+  background: white;
   border-bottom: 1px solid #cacaca !important;
   height: 3px !important;
 }
@@ -221,6 +229,7 @@ button#kernjs_complete {
 #kernjs_container {
     width: 100% !important;
     height: 100% !important;
+    padding: 40px 0 40px 40px !important;
     margin: 0 auto !important;
     text-transform: none !important;
 }
@@ -250,23 +259,22 @@ button#kernjs_complete {
 }
 
 #kernjs_container textarea {
+    padding: 10px !important;
+    border: 1px dotted rgba(0,0,0,0.1) !important;
     background: white !important;
     resize: none !important;
-    width: 100% !important;
+    width: 75.5% !important;
     height: 100% !important;
-    padding: 40px 0 40px 40px !important;
     color: rgba(0,0,0,0.5) !important;
     text-shadow: 0 1px 0 rgba(255,255,255,1) !important;
     background: url(paper.png) !important;
-    line-height: 24px !important;
-    font-family: 'American Typewriter', 'Courier New', Courier !important;
-    font-size: 18px !important;
+    line-height: 20px !important;
+    font-family: 'Ubuntu Mono', 'Courier New', Courier, sans-serif !important;
+    font-size: 15px !important;
     text-shadow: 0 -1px 0 white !important;
 }
 
 #kernjs_container #kernjs_p {
-    width: 100% !important;
-    height: 100% !important;
 }
 #kernjs_note {
     font-size: 13px !important;
@@ -303,12 +311,11 @@ button#kernjs_complete {
 
 #kernjs_boundingbox {
   background: rgba(255,255,255,0.01);
-  -webkit-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1) !important;
-  -moz-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1) !important;
-  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1) !important;
+  -webkit-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.5) !important;
+  -moz-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.5) !important;
+  box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.5) !important;
   pointer-events:none !important; 
-  border: 1px solid rgba(0,0,0,0.1) !important;
-  border-radius: 6px !important;
+  border: 1px solid rgba(0,0,0,0.5) !important;
   position: absolute !important;
 }
 
@@ -338,14 +345,28 @@ button#kernjs_complete {
 
 #kernjs_dialog {
     z-index: 15000000 !important;
-    width: 100% !important;
-    height: 80% !important;
+    width: 35% !important;
+    height: 73% !important;
     display: block !important;
     margin: 0 auto !important;
     background: url(paper.png) !important;
     -moz-box-shadow: 0 0 15px #000 !important;
     -webit-box-shadow: 0 0 15px #000 !important;
     box-shadow: 0 0 15px #000 !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+#kernjs_dialog:after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 30px !important;
+    background: url(controls.png) !important;
+    background-repeat: repeat-x !important;
+    background-position-y: 30px !important;
+    z-index: 2000000000 !important;
 }
 
 #kernjs_overlay, #kernjs_overlay * {

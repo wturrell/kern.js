@@ -144,6 +144,8 @@
       this.element.css('-webkit-transform', deg);
       this.element.css('-moz-transform', deg);
       this.element.css('-o-transform', deg);
+      this.element.css('-ms-transform', deg);
+      this.element.css('transform', deg);
     };
 
     // Converting adjustment to css
@@ -164,7 +166,9 @@
           deg = ': rotate(' + Math.round(this.angle) + 'deg);';
           css.push('-webkit-transform' + deg);
           css.push('-moz-transform' + deg);
+          css.push('-ms-transform' + deg);
           css.push('-o-transform' + deg);
+          css.push('transform' + deg);
         }
       }
       if (this.size !== 100) { // Font size
@@ -382,9 +386,7 @@
       
       if (activeEl) {  
         outputHTML += '<div id="kernjs_container">';
-        outputHTML +=   '<div id="kernjs_p">';
         outputHTML +=     '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
-        outputHTML +=   '</div><br/>';
         outputHTML += '</div';
       } else {
         outputHTML += '<div id="kernjs_container">';
