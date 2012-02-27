@@ -236,7 +236,7 @@
     }
     
     $("h1, h2, h3, h4, h5, h6").click(function (event) { // Activate a word
-      var emRatio, el, previousColor, theHtml, bounding_box, elid;
+      var emRatio, el, previousColor, theHtml, elid;
       elid = ""; // if the user clicks on a header element with an ID, elid is set to be equal to the ID of the header element.
       event.preventDefault(); // Prevent headers that are also links from following the URL while Kern.JS is active.
       if (activeHeader !== this) {
@@ -246,7 +246,9 @@
         emRatio.detach(); // Retrieves the height value from emRatio, store it, and destroy emRatio since we don't need it anymore.
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " "; 
-
+        
+        $("#kernjs_boundingbox").detach(); // destroys all existing bounding boxes.
+        
         el.bounding_box = getTextNodeDimensions(el);        
         $("<div id='kernjs_boundingbox'>").css({ // Creates the bounding box with some manual correction for whitespace.
           'height': el.bounding_box.height - 40,
@@ -274,9 +276,8 @@
 
         $(window).mousedown(function (event) { // Listens for clicks on the entire document. Currently problematic.
           var adj, lastX, lastY, that, original_color;
-
-          original_color = $(event.target).css('color');
-          console.log(original_color);
+          
+          original_color = $(event.target).css('color'); // save the activeEl's original color so we can restore it later.
 
           function MoveHandler(event) {
             var moveX = event.pageX - lastX,
@@ -320,6 +321,9 @@
           }         
           if($.contains(el, event.target)) {
             activeEl = event.target; // Set activeEl to represent the clicked letter.
+
+            $(activeEl).css('color', 'white !important');
+            
             lastX = event.pageX;
             lastY = event.pageY;
             if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
@@ -329,6 +333,7 @@
             $(this).bind('mousemove', MoveHandler);
             $(this).mouseup(function (event) {
               $(this).unbind('mousemove', MoveHandler);
+              $(activeEl).css('color', original_color + ' !important');
             });
           }
         });

@@ -259,7 +259,7 @@ button#kernjs_complete {
 
 #kernjs_container textarea {
     padding: 10px !important;
-    border: 1px dotted rgba(0,0,0,0.1) !important;
+    border: 1px dashed rgba(0,0,0,0.1) !important;
     background: white !important;
     resize: none !important;
     width: 75.5% !important;
@@ -372,4 +372,8 @@ button#kernjs_complete {
   -moz-transition: opacity .5s ease, -moz-transform .5s ease !important;
   -webkit-transition: opacity .5s ease, -webkit-transform .5s ease !important;
   transition: opacity .5s ease, transform .5s ease !important;
+}
+
+.kernjs_activeEl {
+  color: white !important;
 }
