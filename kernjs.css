@@ -86,9 +86,8 @@ table-layout: auto !important;
 }
 
 #kernjs_transformSelect {
-  border-left: 1px solid #cacaca !important;
-  border-right: 1px solid #cacaca !important;
-  border-bottom: 1px solid #cacaca !important;
+  border: 1px solid #cacaca !important;
+  border-top: 1px solid #ffffff !important;
   background-color: #FFF !important;
   width: auto !important;
   height: auto !important;
