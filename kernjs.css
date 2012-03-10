@@ -114,7 +114,7 @@ table-layout: auto !important;
 
 #kernjs_transformSelect button div {
   background-image: url('controls.png') !important;
-  background-repeat: no-repeat !important;  
+  background-repeat: no-repeat !important;
   width: auto !important;
   min-width: 34px !important;
   height: auto !important;
@@ -212,9 +212,9 @@ button#kernjs_complete {
 #kernjs_panel #kernjs_unit section {
   padding: 8px 2px 0 2px !important;
   display: inline-block !important;
-	text-align: left !important;
-	font-weight: normal !important;
-	font-size: 13px !important;
+  text-align: left !important;
+  font-weight: normal !important;
+  font-size: 13px !important;
 }
 
 #kernjs_panel button:hover, #kernjs_panel button div:hover {
@@ -228,7 +228,7 @@ button#kernjs_complete {
 #kernjs_container {
     width: 100% !important;
     height: 100% !important;
-    padding: 40px 0 40px 40px !important;
+    padding: 30px 0 30px 30px !important;
     margin: 0 auto !important;
     text-transform: none !important;
 }
@@ -262,7 +262,7 @@ button#kernjs_complete {
     border: 1px dashed rgba(0,0,0,0.1) !important;
     background: white !important;
     resize: none !important;
-    width: 75.5% !important;
+    width: 81% !important;
     height: 100% !important;
     color: rgba(0,0,0,0.5) !important;
     text-shadow: 0 1px 0 rgba(255,255,255,1) !important;
@@ -309,13 +309,17 @@ button#kernjs_complete {
 }
 
 #kernjs_boundingbox {
+  border-radius: 3px !important;
   background: rgba(255,255,255,0.01);
   -webkit-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.5) !important;
   -moz-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.5) !important;
   box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.5) !important;
-  pointer-events:none !important; 
+  pointer-events:none !important;
   border: 1px solid rgba(0,0,0,0.5) !important;
   position: absolute !important;
+  -moz-transition: opacity .5s ease !important;
+  -webkit-transition: opacity .5s ease !important;
+  transition: opacity .5s ease !important;
 }
 
 #kernjs_overlay {
@@ -343,6 +347,8 @@ button#kernjs_complete {
 }
 
 #kernjs_dialog {
+    border-bottom-left-radius: 1px !important;
+    border-bottom-right-radius: 1px !important;
     z-index: 15000000 !important;
     width: 35% !important;
     height: 73% !important;

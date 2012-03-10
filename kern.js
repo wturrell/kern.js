@@ -11,7 +11,7 @@
 * Special thanks to Mathew Luebbert at www.luebbertm.com for significant code contributions
 
 * Thanks to the Lettering.JS team for being so cool and making the web a better place.
-* Released under the WTFPL license 
+* Released under the WTFPL license
 * http://sam.zoy.org/wtfpl/
 * Date: Tuesday, June 7 2011
 */
@@ -88,7 +88,7 @@
       this.element.css('display', 'inline-block'); // make position relative
       this.element.css('vertical-align', 'top'); // prevents something horrible from happening.
     }
-    
+
     // alias .fn to .prototype
     Adjustment.fn = Adjustment.prototype;
 
@@ -116,7 +116,7 @@
       this.vertical += v;
       this.element.css('top', this.vertical.toString() + 'px'); // make live adjustment in DOM
     };
-    
+
     // Allows simultaneous x/y movement.
     Adjustment.fn.set_position = function (x, y) {
       // this.make_relative();
@@ -132,7 +132,7 @@
       this.size += s;
       this.element.css('font-size', this.size + '%'); // change letter size
     };
-    
+
     // Size adjustment logic
     Adjustment.fn.set_angle = function (a) {
       if (transformFlag !== 'rotation') {
@@ -176,7 +176,7 @@
       }
       return '\t' + css.join('\n\t');
     };
-    
+
     function getTextNodeDimensions(textNode) { // Helper function for creating the bounding box overlay around activeEl
         var rect = {};
         if (document.createRange) {
@@ -234,7 +234,7 @@
         t.empty().append(inject);
       }
     }
-    
+
     $("h1, h2, h3, h4, h5, h6").click(function (event) { // Activate a word
       var emRatio, el, previousColor, theHtml, elid;
       elid = ""; // if the user clicks on a header element with an ID, elid is set to be equal to the ID of the header element.
@@ -245,18 +245,20 @@
         emPx = emRatio.height();
         emRatio.detach(); // Retrieves the height value from emRatio, store it, and destroy emRatio since we don't need it anymore.
         el = findRootHeader(event.target);
-        elid += el.tagName.toLowerCase() + " "; 
-        
-        $("#kernjs_boundingbox").detach(); // destroys all existing bounding boxes.
-        
-        el.bounding_box = getTextNodeDimensions(el);        
+        elid += el.tagName.toLowerCase() + " ";
+
+        $("#kernjs_boundingbox").fadeOut(function() {
+          $(this).detach(); // destroys all existing bounding boxes.
+        });
+
+        el.boundingbox = getTextNodeDimensions(el);
         $("<div id='kernjs_boundingbox'>").css({ // Creates the bounding box with some manual correction for whitespace.
-          'height': el.bounding_box.height - 40,
-          'width': el.bounding_box.width + 40,
-          'top': el.bounding_box.top + 20,
-          'left': el.bounding_box.left - 20,
+          'height': el.boundingbox.height - 40,
+          'width': el.boundingbox.width + 40,
+          'top': el.boundingbox.top + 20,
+          'left': el.boundingbox.left - 20,
         }).appendTo($("body"));
-        
+
         if ($(el).attr('id')) { // If the clicked header has an ID...
           elid += "#" + $(el).attr('id') + " "; //...set elid to be a css string representation of the header's id (for example, "#myheader")
         }
@@ -276,7 +278,7 @@
 
         $(window).mousedown(function (event) { // Listens for clicks on the entire document. Currently problematic.
           var adj, lastX, lastY, that, original_color;
-          
+
           original_color = $(event.target).css('color'); // save the activeEl's original color so we can restore it later.
 
           function MoveHandler(event) {
@@ -309,21 +311,21 @@
               adjustments[elid + "." + $(activeEl).attr("class")] = adj;
               generateCSS(adjustments, emPx, unitFlag); // make stored adjustment in generated CSS
             }
-            
-            el.bounding_box = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
-            
+
+            el.boundingbox = getTextNodeDimensions(el); // These lines allow the bounding box to react to changes on activeEl
+
             $("#kernjs_boundingbox").css({
-              'height': el.bounding_box.height - 40,
-              'width': el.bounding_box.width + 40,
-              'top': el.bounding_box.top + 20,
-              'left': el.bounding_box.left - 20,
-            }); 
-          }         
+              'height': el.boundingbox.height - 40,
+              'width': el.boundingbox.width + 40,
+              'top': el.boundingbox.top + 20,
+              'left': el.boundingbox.left - 20,
+            });
+          }
           if($.contains(el, event.target)) {
             activeEl = event.target; // Set activeEl to represent the clicked letter.
 
             $(activeEl).css('color', 'white !important');
-            
+
             lastX = event.pageX;
             lastY = event.pageY;
             if (typeof (adjustments[elid + "." + $(activeEl).attr("class")]) === 'undefined') {
@@ -378,26 +380,30 @@
         }
       }
     });
-    
+
     $("#kernjs_textarea").live('click', function () {
       $(this).focus();
       $(this).select();
     });
-    
+
     $("#kernjs_complete").click(function () {
       var outputHTML = '';
       var transitionEnd = "TransitionEnd";
-      
+
       if ($.browser.webkit) {
-      	transitionEnd = "webkitTransitionEnd";
+        transitionEnd = "webkitTransitionEnd";
       } else if ($.browser.mozilla) {
-      	transitionEnd = "transitionend";
+        transitionEnd = "transitionend";
       } else if ($.browser.opera) {
-      	transitionEnd = "oTransitionEnd";
+        transitionEnd = "oTransitionEnd";
       }
-      
-      if (activeEl) {  
+
+      if (activeEl) {
         outputHTML += '<div id="kernjs_container">';
+        outputHTML += '<form>';
+        outputHTML += '<input type="radio" name="kernjs_units" value="em" /> Em';
+        outputHTML += '<input type="radio" name="kernjs_units" value="px" /> Px';
+        outputHTML += '</form>';
         outputHTML +=     '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
         outputHTML += '</div';
       } else {
@@ -407,9 +413,9 @@
         outputHTML +=   '</div><br/>';
         outputHTML += '</div';
       }
-      
+
       $("#kernjs_dialog").html(outputHTML).appendTo($("#kernjs_overlay"));
-      
+
       $("#kernjs_overlay").css({
         'height': '100% !important',
         'opacity': '1 !important'
@@ -419,14 +425,19 @@
         '-moz-transform': 'scale(1) !important',
         'transform': 'scale(1) !important'
       });
-      
+
+      $("input[name='kernjs_units']").bind('click', function() {
+        unitFlag = $(this).val();
+        $("#kernjs_textarea").html(generateCSS(adjustments, emPx, unitFlag));
+      });
+
       $("#kernjs_dialogshade").bind('click', function() {
         $("#kernjs_dialog").css({
           '-webkit-transform': 'scale(1.03) !important',
           '-moz-transform': 'scale(1.03) !important',
           'transform': 'scale(1.03) !important'
         });
-        $("#kernjs_overlay").bind(transitionEnd, function() { 
+        $("#kernjs_overlay").bind(transitionEnd, function() {
             $(this).unbind(transitionEnd);
             $("#kernjs_overlay").css({ height: "0 !important" });
         });
