@@ -420,10 +420,12 @@
         'height': '100% !important',
         'opacity': '1 !important'
       });
+
       $("#kernjs_dialog").css({
         '-webkit-transform': 'scale(1) !important',
         '-moz-transform': 'scale(1) !important',
-        'transform': 'scale(1) !important'
+        'transform': 'scale(1) !important',
+        'margin-left': '-50% !important'
       });
 
       $("input[name='kernjs_units']").bind('click', function() {

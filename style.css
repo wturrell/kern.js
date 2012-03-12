@@ -1,26 +1,25 @@
 body {
-	margin: 0;
-	background: url(indexbg.png);
+  margin: 0;
 }
 
 span {
 }
 
 h1, h2, h3 {
-	font-family: helvetica, arial;
-	position: relative;
-	font-size: 10em;
-	line-height: .2em;
+  font-family: helvetica, arial;
+  position: relative;
+  font-size: 10em;
+  line-height: .2em;
 }
 
 #container {
-	margin: 0 auto;
-	text-align: center;
+  margin: 0 auto;
+  text-align: center;
   margin-top: 16em;
 }
 
 #content {
-	margin: 0 auto;
-	text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
 
