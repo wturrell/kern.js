@@ -277,9 +277,9 @@
         });
 
         $(window).mousedown(function (event) { // Listens for clicks on the entire document. Currently problematic.
-          var adj, lastX, lastY, that, original_color;
+          var adj, lastX, lastY, that, original_opacity;
 
-          original_color = $(event.target).css('color'); // save the activeEl's original color so we can restore it later.
+          original_opacity = $(event.target).css('opacity'); // save the activeEl's original color so we can restore it later.
 
           function MoveHandler(event) {
             var moveX = event.pageX - lastX,
@@ -324,7 +324,7 @@
           if($.contains(el, event.target)) {
             activeEl = event.target; // Set activeEl to represent the clicked letter.
 
-            $(activeEl).css('color', 'white !important');
+            $(activeEl).css('opacity', '0.5 !important');
 
             lastX = event.pageX;
             lastY = event.pageY;
@@ -335,7 +335,7 @@
             $(this).bind('mousemove', MoveHandler);
             $(this).mouseup(function (event) {
               $(this).unbind('mousemove', MoveHandler);
-              $(activeEl).css('color', original_color + ' !important');
+              $(activeEl).css('opacity', original_opacity + ' !important');
             });
           }
         });
