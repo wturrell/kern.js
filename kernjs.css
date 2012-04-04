@@ -263,7 +263,7 @@ button#kernjs_complete {
     background: rgba(255,255,255,0.8) !important;
     resize: none !important;
     width: 81% !important;
-    height: 82% !important;
+    height: 80% !important;
     color: rgba(0,0,0,0.5) !important;
     text-shadow: 0 1px 0 rgba(255,255,255,1) !important;
     line-height: 20px !important;
@@ -352,7 +352,7 @@ button#kernjs_complete {
     border-bottom-left-radius: 1px !important;
     border-bottom-right-radius: 1px !important;
     z-index: 15000000 !important;
-    width: 420px !important;
+    width: 540px !important;
     height: 100% !important;
     display: block !important;
     margin: 0 auto !important;
@@ -363,7 +363,7 @@ button#kernjs_complete {
     overflow: hidden !important;
     position: absolute !important;
     left: 50% !important;
-    margin-left: -100% !important;
+    margin-left: -270px !important;
 }
 
 #kernjs_overlay, #kernjs_overlay * {
