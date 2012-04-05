@@ -42,7 +42,7 @@
 
     $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"></div><div id="kernjs_dialog">').appendTo($("body"));
 
-    html = '<div class="kernjs_panel" id="kernjs_panel">';
+    html = '<div class="kernjs_panel kernjs_disabled" id="kernjs_panel">';
     html +=   '<div id="kernjs_transformSelect">';
     html +=     '<div id="kernjs_input">';
     html +=       '<button value="kerning" class="active" id="kernjs_kern" name="kernjs_kern" /><div></div></button>';
@@ -121,7 +121,6 @@
 
     // Allows simultaneous x/y movement.
     Adjustment.fn.set_position = function (x, y) {
-      // this.make_relative();
       this.kerning += x;
       this.element.css('margin-left', this.kerning.toString() + 'px'); // make live adjustment in DOM
       this.vertical += y;
@@ -130,7 +129,6 @@
 
     // Size adjustment logic
     Adjustment.fn.set_size = function (s) {
-      // if (transformFlag!=='size') { return; }
       this.size += s;
       this.element.css('font-size', this.size + '%'); // change letter size
     };
@@ -141,7 +139,6 @@
         return;
       }
       this.angle += a;
-      // this.make_relative(); We should probably make this relative all the time regar
       var deg = 'rotate(' + Math.round(this.angle) + 'deg)';
       this.element.css('-webkit-transform', deg);
       this.element.css('-moz-transform', deg);
@@ -249,6 +246,8 @@
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " ";
 
+        $(".kernjs_panel").removeClass('kernjs_disabled');
+
         $("#kernjs_boundingbox").fadeOut(function() {
           $(this).detach(); // destroys all existing bounding boxes.
         });
@@ -281,27 +280,27 @@
         $(window).keydown(function (event) {
           console.log(event.which);
           var thisKey = event.which;
-          if(thisKey === 86) { // v for abs pos
+          if(thisKey === 86 || thisKey === 52) { // v for abs pos
             $(".active").removeClass('active');
             $("#kernjs_pos").addClass('active');
             transformFlag = "position";
           }
-          if(thisKey === 83) { // s for scale
+          if(thisKey === 83 || thisKey === 50 ) { // s for scale
             $(".active").removeClass('active');
             $("#kernjs_size").addClass('active');
             transformFlag = "size"
           }
-          if(thisKey === 76) { // l for leading
+          if(thisKey === 76 || thisKey === 51) { // l for leading
             $(".active").removeClass('active');
             $("#kernjs_vert").addClass('active');
             transformFlag = "leading";
           }
-          if(thisKey === 82) { // r for rotation
+          if(thisKey === 82 || thisKey === 53) { // r for rotation
             $(".active").removeClass('active');
             $("#kernjs_angle").addClass('active');
             transformFlag = "rotation";
           }
-          if(thisKey === 190) { // . for kerning
+          if(thisKey === 190 || thisKey === 49) { // . for kerning
             $(".active").removeClass('active');
             $("#kernjs_kern").addClass('active');
             transformFlag = "kerning";
@@ -320,10 +319,11 @@
             if (event.altKey || transformFlag === "size") { // If Shift key is pressed - change letter size
               adj.set_size(moveX);
               renew = 1;
-            } else if (event.shiftKey || transformFlag === "rotation") { // If Alt key is pressed - rotate letter
+            } else if (event.metaKey || transformFlag === "rotation") { // If Alt key is pressed - rotate letter
               adj.set_angle(moveX);
               renew = 1;
             } else if (event.ctrlKey || transformFlag === "position") {
+              event.preventDefault()
               adj.set_position(moveX, moveY);
               renew = 1;
             } else if (transformFlag === "kerning") {
