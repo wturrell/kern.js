@@ -59,13 +59,16 @@ table-layout: auto !important;
 }
 
 .kernjs_activeEl {
-  opacity: .5;
+  opacity: .5 !important;
 }
 
 #panel.kernjs_panel {
-  background: white;
+  background: white !important;
   border-bottom: 1px solid #cacaca !important;
   height: 3px !important;
+  width: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
 }
 
 #kernjs_panel * { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
@@ -89,7 +92,7 @@ table-layout: auto !important;
   border: 1px solid #cacaca !important;
   border-top: 1px solid #ffffff !important;
   background-color: #FFF !important;
-  width: auto !important;
+  width: 300px !important;
   height: auto !important;
   display: inline-block !important;
   border-bottom-left-radius: 8px !important;
@@ -97,6 +100,7 @@ table-layout: auto !important;
   overflow: hidden !important;
   margin: 0 auto !important;
   margin-top: 3px !important;
+  position: relative !important;
 }
 
 #kernjs_input {
@@ -174,8 +178,15 @@ button#kernjs_complete {
 #kernjs_pos div {
   background-position: -137px 0 !important;
 }
-#kernjs_complete div {
-  background-position: -193px 0 !important;
+
+#kernjs_generateSelect {
+  position: absolute !important;
+  top: 6px !important;
+  right: 3px !important;
+}
+
+#kernjs_generate div {
+  background-position: -170px 0 !important;
 }
 
 #kernjs_p em, #kernjs_p a {
@@ -191,6 +202,15 @@ button#kernjs_complete {
 #kernjs_panel #kernjs_transformSelect button:hover {
   border: 1px solid rgba(0,0,0,0.25) !important;
   background: rgba(255,255,255,1) !important;
+}
+
+#kernjs_panel #kernjs_transformSelect #kernjs_generateSelect button:hover {
+  border: 0 !important;
+  opacity: 0.5 !important;
+}
+
+#kernjs_panel #kernjs_transformSelect #kernjs_generateSelect button:active {
+  opacity: 0.8 !important;
 }
 
 #kernjs_panel #kernjs_transformSelect button.active {

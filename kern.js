@@ -51,9 +51,11 @@
     html +=       '<button value="position" id="kernjs_pos" name="kernjs_pos" /><div></div></button>';
     html +=       '<button value="rotation" id="kernjs_angle" name="kernjs_angle" /><div></div></button>';
     html +=     '</div>';
+    html +=     '<div id="kernjs_generateSelect">';
+    html +=       '<button value="generate" id="kernjs_generate" name="kernjs_generate" /><div></div></button>';
+    html +=     '</div>';
     html +=   '</div>';
     html += '</div>';
-    html +=       '<button value="go" id="kernjs_complete" name="kernjs_gobutton" /><div></div></button>';
 
     thePanel.innerHTML = html;
     $("body").prepend(thePanel);
@@ -276,6 +278,36 @@
           };
         });
 
+        $(window).keydown(function (event) {
+          console.log(event.which);
+          var thisKey = event.which;
+          if(thisKey === 86) { // v for abs pos
+            $(".active").removeClass('active');
+            $("#kernjs_pos").addClass('active');
+            transformFlag = "position";
+          }
+          if(thisKey === 83) { // s for scale
+            $(".active").removeClass('active');
+            $("#kernjs_size").addClass('active');
+            transformFlag = "size"
+          }
+          if(thisKey === 76) { // l for leading
+            $(".active").removeClass('active');
+            $("#kernjs_vert").addClass('active');
+            transformFlag = "leading";
+          }
+          if(thisKey === 82) { // r for rotation
+            $(".active").removeClass('active');
+            $("#kernjs_angle").addClass('active');
+            transformFlag = "rotation";
+          }
+          if(thisKey === 190) { // . for kerning
+            $(".active").removeClass('active');
+            $("#kernjs_kern").addClass('active');
+            transformFlag = "kerning";
+          }
+        });
+
         $(window).mousedown(function (event) { // Listens for clicks on the entire document. Currently problematic.
           var adj, lastX, lastY, that, original_opacity;
 
@@ -386,7 +418,7 @@
       $(this).select();
     });
 
-    $("#kernjs_complete").click(function () {
+    $("#kernjs_generate").click(function () {
       var outputHTML = '';
       var transitionEnd = "TransitionEnd";
 
@@ -401,7 +433,7 @@
       if (activeEl) {
         outputHTML += '<div id="kernjs_container">';
         outputHTML += '<form>';
-        outputHTML += '<input type="radio" name="kernjs_units" value="em" /> Em';
+        outputHTML += '<input type="radio" name="kernjs_units" value="em" checked="checked"/> Em';
         outputHTML += '<input type="radio" name="kernjs_units" value="px" /> Px';
         outputHTML += '</form>';
         outputHTML +=     '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
