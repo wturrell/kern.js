@@ -246,7 +246,7 @@
         el = findRootHeader(event.target);
         elid += el.tagName.toLowerCase() + " ";
 
-        $(".kernjs_panel").removeClass('kernjs_disabled');
+        $(".kernjs_disabled").removeClass('kernjs_disabled');
 
         $("#kernjs_boundingbox").fadeOut(function() {
           $(this).detach(); // destroys all existing bounding boxes.
@@ -278,7 +278,6 @@
         });
 
         $(window).keydown(function (event) {
-          console.log(event.which);
           var thisKey = event.which;
           if(thisKey === 86 || thisKey === 52) { // v for abs pos
             $(".active").removeClass('active');
@@ -432,17 +431,14 @@
 
       if (activeEl) {
         outputHTML += '<div id="kernjs_container">';
-        outputHTML += '<form>';
-        outputHTML += '<input type="radio" name="kernjs_units" value="em" checked="checked"/> Em';
-        outputHTML += '<input type="radio" name="kernjs_units" value="px" /> Px';
-        outputHTML += '</form>';
-        outputHTML +=     '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
+        outputHTML +=   '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
+        outputHTML +=   '<div id="kernjs_units">';
+        outputHTML +=     '<a id="kernjs_units_label" href="javascript:void(0)">Switch to ems</a>';
+        outputHTML +=   '</div>';
         outputHTML += '</div';
       } else {
         outputHTML += '<div id="kernjs_container">';
-        outputHTML +=   '<div id="kernjs_p">';
-        outputHTML +=     '<textarea>' + 'You haven\'t made any adjustments yet.' + '</textarea>';
-        outputHTML +=   '</div><br/>';
+        outputHTML +=     '<textarea id="kernjs_textarea">' + 'You haven\'t made any adjustments yet.' + '</textarea>';
         outputHTML += '</div';
       }
 
@@ -453,23 +449,22 @@
         'opacity': '1 !important'
       });
 
-      $("#kernjs_dialog").css({
-        '-webkit-transform': 'scale(1) !important',
-        '-moz-transform': 'scale(1) !important',
-        'transform': 'scale(1) !important',
-      });
+      $("#kernjs_dialog").addClass('kernjs_dialog_active');
 
-      $("input[name='kernjs_units']").bind('click', function() {
-        unitFlag = $(this).val();
+      $("#kernjs_units").bind('click', function() {
+        if (unitFlag === "em") {
+          unitFlag = "px";
+          $("#kernjs_units_label").html("Switch to ems");
+        }
+        else {
+          unitFlag = "em";
+          $("#kernjs_units_label").html("Switch to pxs");
+        }
         $("#kernjs_textarea").html(generateCSS(adjustments, emPx, unitFlag));
       });
 
       $("#kernjs_dialogshade").bind('click', function() {
-        $("#kernjs_dialog").css({
-          '-webkit-transform': 'scale(1.03) !important',
-          '-moz-transform': 'scale(1.03) !important',
-          'transform': 'scale(1.03) !important'
-        });
+        $("#kernjs_dialog").removeClass('kernjs_dialog_active');
         $("#kernjs_overlay").bind(transitionEnd, function() {
             $(this).unbind(transitionEnd);
             $("#kernjs_overlay").css({ height: "0 !important" });

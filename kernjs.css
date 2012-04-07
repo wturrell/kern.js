@@ -260,7 +260,6 @@ button#kernjs_complete {
 #kernjs_container {
     width: 100% !important;
     height: 100% !important;
-    padding: 7% !important;
     margin: 0 auto !important;
     text-transform: none !important;
 }
@@ -289,13 +288,30 @@ button#kernjs_complete {
     color: #009bd5 !important;
 }
 
+#kernjs_units {
+  margin: 0 auto !important;
+  width: 392px !important;
+  position: absolute !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  margin-left: -196px !important;
+  text-align: center !important;
+}
+
+#kernjs_units_label {
+  font-weight: bold !important;
+}
+
 #kernjs_container textarea {
-    padding: 2% !important;
     border: 1px solid rgba(0,0,0,0.15) !important;
     background: rgba(255,255,255,0.8) !important;
     resize: none !important;
-    width: 81% !important;
-    height: 80% !important;
+    width: 392px !important;
+    margin-left: -196px !important;
+    position: relative !important;
+    left: 50% !important;
+    top: 50% !important;
+    height: 208px !important;
     color: rgba(0,0,0,0.5) !important;
     text-shadow: 0 1px 0 rgba(255,255,255,1) !important;
     line-height: 20px !important;
@@ -305,6 +321,13 @@ button#kernjs_complete {
     -moz-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5), inset 0 0 15px rgba(0,0,0,0.1) !important;
     -webit-box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5), inset 0 0 15px rgba(0,0,0,0.1) !important;
     box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5), inset 0 0 15px rgba(0,0,0,0.1) !important;
+    border-radius: 2px !important;
+    margin-top: -115px !important;
+    margin-bottom: 115px !important;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    padding: 12px !important;
 }
 
 #kernjs_container #kernjs_p {
@@ -381,30 +404,45 @@ button#kernjs_complete {
 }
 
 #kernjs_dialog {
-    border-bottom-left-radius: 1px !important;
-    border-bottom-right-radius: 1px !important;
+    border-radius: 4px !important;
     z-index: 15000000 !important;
-    width: 540px !important;
-    height: 100% !important;
+    width: 480px !important;
+    height: 300px !important;
     display: block !important;
     margin: 0 auto !important;
     background: url(paper2.png) !important;
     -moz-box-shadow: 0 0 15px #000 !important;
-    -webit-box-shadow: 0 0 15px #000 !important;
+    -webkit-box-shadow: 0 0 15px #000 !important;
     box-shadow: 0 0 15px #000 !important;
     overflow: hidden !important;
     position: absolute !important;
+    top: 45% !important;
     left: 50% !important;
-    margin-left: -270px !important;
+    margin-left: -240px !important;
+    margin-top: -150px !important;
+    -webkit-transform: scale(0.9) !important;
+    -moz-transform: scale(0.9) !important;
+    transform: scale(0.9) !important;
+}
+
+#kernjs_dialog.kernjs_dialog_active {
+  -webkit-transform: scale(1) !important;
+  -moz-transform: scale(1) !important;
+  transform: scale(1) !important;
 }
 
 #kernjs_overlay, #kernjs_overlay * {
-  -moz-transition: margin-left .2s ease, opacity .5s ease, -moz-transform .5s ease !important;
-  -webkit-transition: margin-left .2s ease, opacity .5s ease, -webkit-transform .5s ease !important;
-  transition: margin-left .2s ease, opacity .5s ease, transform .5s ease !important;
+  -moz-transition: margin-left .4s ease, opacity .3s ease, -moz-transform .5s ease !important;
+  -webkit-transition: margin-left .4s ease, opacity .3s ease, -webkit-transform .5s ease !important;
+  transition: margin-left .4s ease, opacity .3s ease, transform .5s ease !important;
   -webkit-font-smoothing: antialiased !important;
 }
 
 #kernjs_overlay {
   opacity: 0 !important;
+}
+
+#kernjs_overlay.kernjs_overlay_active {
+  height: 100% !important;
+  opacity: 1 !important;
 }
