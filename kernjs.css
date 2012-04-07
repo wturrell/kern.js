@@ -360,10 +360,10 @@ button#kernjs_complete {
 
 #kernjs_boundingbox {
   border-radius: 3px !important;
-  background: rgba(255,255,255,0.01);
-  -webkit-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.65) !important;
-  -moz-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.65) !important;
-  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.65) !important;
+  background: rgba(255,255,255,0.1);
+  -webkit-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.8) !important;
+  -moz-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.8) !important;
+  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.8) !important;
   pointer-events:none !important;
   border: 1px solid rgba(0,0,0,0.25) !important;
   position: absolute !important;
