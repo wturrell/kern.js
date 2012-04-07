@@ -37,12 +37,13 @@
 
     thePanel = document.createElement("div");
     thePanel.id = "panel";
-    thePanel.setAttribute("class", "kernjs_panel");
+    thePanel.setAttribute("class", "kernjs_panel kernjs_disabled");
     $(thePanel).css('opacity', '0');
 
     $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"></div><div id="kernjs_dialog">').appendTo($("body"));
+    $("<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>").appendTo($("head"));
 
-    html = '<div class="kernjs_panel kernjs_disabled" id="kernjs_panel">';
+    html = '<div class="kernjs_panel" id="kernjs_panel">';
     html +=   '<div id="kernjs_transformSelect">';
     html +=     '<div id="kernjs_input">';
     html +=       '<button value="kerning" class="active" id="kernjs_kern" name="kernjs_kern" /><div></div></button>';
