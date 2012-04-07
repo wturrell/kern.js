@@ -195,8 +195,8 @@
         if (adjustments.hasOwnProperty(x)) {
           adj = adjustments[x];
           if(x !== '.undefined') {
-            concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}'].join('\n');
-            theCSS = theCSS + '\n' + concatCSS;
+            concatCSS = [x + " {", adj.to_css(unitFlag === 'em'), '}', '\n'].join('\n');
+            theCSS = theCSS + concatCSS;
           }
         }
       }
@@ -433,7 +433,7 @@
         outputHTML += '<div id="kernjs_container">';
         outputHTML +=   '<textarea id="kernjs_textarea">' + generateCSS(adjustments, emPx, unitFlag) + '</textarea>';
         outputHTML +=   '<div id="kernjs_units">';
-        outputHTML +=     '<a id="kernjs_units_label" href="javascript:void(0)">Switch to ems</a>';
+        outputHTML +=     '<a id="kernjs_units_label" href="javascript:void(0)">Switch to pxs</a>';
         outputHTML +=   '</div>';
         outputHTML += '</div';
       } else {
