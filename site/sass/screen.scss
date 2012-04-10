@@ -1,0 +1,111 @@
+@import "frameless";
+@import "normalize";
+@import "compass/css3";
+@import "compass/utilities";
+
+body {
+  font-family: 'museo-sans';
+  font-size: 100%;
+  line-height: 1.5;
+  background-image: image_url("press.png"), image_url("geometricPattern.png"), image_url("noisePattern.jpg");
+  background-size: 60%, auto, auto;
+  background-repeat: no-repeat, repeat, repeat;
+  color: white;
+  * { -webkit-font-smoothing: antialiased; }
+}
+
+header {
+    margin-top: 7.449em;
+    position: relative;
+    h1 {
+        margin-bottom: 0;
+        white-space: nowrap;
+        color: rgba(#fff,1);
+        font-weight: 100;
+        margin-left: -0.108em;
+    }
+}
+
+body > section {
+    width: 19.5em;
+    margin: 0 auto; 
+}
+
+a {
+    color: #58daff;
+    &:hover {
+        opacity: 0.5;
+    }
+    &:active {
+        opacity: 0.75;
+    }
+}
+
+aside {
+    position: absolute;
+    right: -60px;
+    top: 60px;
+    a {
+        display: block;
+        font-size: 0.75em;
+        font-weight: 500;
+        margin-bottom: 3px;
+    }
+}
+
+p {
+    font-family: 'museo-sans-rounded';
+    font-size: 0.9375em;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.highlight {
+    color: #fa715f;
+}
+
+strong.hightlight {
+
+}
+
+footer {
+    background-color: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    -moz-transition: background-color .25s ease !important;
+    -webkit-transition: background-color .25s ease !important;
+    transition: background-color .25s ease !important;
+    &:hover {
+      background-color: rgba(0,0,0,0.5);
+    }
+    a {
+        padding: 10px 0;
+        width: 100%;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        &:hover {
+          opacity: 1 !important;
+        }
+    }
+    div {
+        width: 100%;
+        height: 100%;
+        display: block;
+        text-decoration: none;
+    }
+    span {
+      @extend .highlight;
+      font-weight: 900;
+    }
+    margin-bottom: 7.449em;
+}
+
+body#specific div#kernjs_boundingbox {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  margin-top: -10px !important;
+  -moz-transition: height .1s linear !important;
+  -webkit-transition: height .1s linear !important;
+  transition: height .1s linear !important;
+}

@@ -1,0 +1,51 @@
+!!!
+/[if lt IE 7] <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
+/[if IE 7] <html class="no-js lt-ie9 lt-ie8" lang="en">
+/[if IE 8] <html class="no-js lt-ie9" lang="en">
+/ [if gt IE 8]><!
+%html.no-js{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %title kern.js | fun with webfonts.
+    %meta{:content => "", :name => "description"}
+    %meta{:content => "width=device-width", :name => "viewport"}
+    %link{:href => "/site/stylesheets/screen.css", :rel => "stylesheet"}
+    %link{:href => "/kernjs.css", :rel => "stylesheet"}
+    %script{:src => "/site/js/libs/modernizr-2.5.3.min.js"}
+    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+    %script{:src => "http://use.typekit.com/rbi0fyh.js", :type => "text/javascript"}
+    %script{:src => "/site/js/libs/jquery.fittext.js"}
+    :javascript
+      try{Typekit.load();}catch(e){}
+  %body#specific
+    %section
+      %header
+        %h1 kern.js
+        / %aside
+        /   %a{:href => "https://github.com/bstro/kern.js"} github
+        /   %a{:href => "http://www.twitter.com/bstrom"} twitter
+        /   %a{:href => "http://www.letteringjs.com"} lettering.js
+
+      %div{:role => "main"}
+        %p A super-simple bookmarklet for designers that finally puts you back in control of your website's typography.
+        %p Here's how it works: Add the bookmarklet to your browser and activate it while at your page. Then adjust your kerning, line-height, letter placement and more to your heart's content! When you're done, just copy the generated CSS and use it in your own stylesheet, right there alongside Lettering.js.
+        %p
+          See?
+          %span.highlight Suuuuuuper easy.
+      %footer
+        %a{:href => "javascript:void(0);"}
+          %div#install
+            %span drag to your bookmarks bar to install
+    %script{:src => "/kern.js"}
+    :javascript
+      window.jQuery || document.write('<\/script>')
+        var _gaq=[['_setAccount','UA-9943083-2'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    :javascript    
+      $(document).ready(function() {
+          $("h1").fitText(0.29);
+      });
