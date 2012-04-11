@@ -533,8 +533,8 @@ body {
   font-family: 'museo-sans';
   font-size: 100%;
   line-height: 1.5;
-  background-image: url('/site/images/press_25.png?1334112845'), url('/site/images/geometricPattern.png?1334030834'), -webkit-linear-gradient(45deg, rgba(69, 72, 77, 0) 0%, #45484d 50%, rgba(69, 72, 77, 0) 100%), url('/site/images/noisePattern.jpg?1333935638');
-  background-size: 75%, auto, auto, 100% 100%;
+  background-image: url('/site/images/press_8.png?1334157230'), url('/site/images/geometricPattern.png?1334155472'), -webkit-linear-gradient(45deg, rgba(69, 72, 77, 0) 0%, #45484d 50%, rgba(69, 72, 77, 0) 100%), url('/site/images/noisePattern.jpg?1333935638');
+  background-size: 70%, auto, auto, 100% 100%;
   background-repeat: no-repeat, repeat, repeat;
   background-position: bottom left;
   background-attachment: fixed, fixed, fixed, fixed;
@@ -562,6 +562,15 @@ header h1 {
 }
 
 /* line 38, ../sass/screen.scss */
+.active_h1 {
+  color: rgba(255, 255, 255, 0.5);
+}
+/* line 40, ../sass/screen.scss */
+.active_h1 * {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 43, ../sass/screen.scss */
 body > section {
   width: 19.5em;
   margin: 0 auto;
@@ -573,10 +582,26 @@ body > section {
   -webkit-transition-delay: 0.25s;
 }
 
-/* line 49, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
+footer + section {
+  margin-top: 1em;
+  margin-bottom: 4.604em;
+}
+/* line 55, ../sass/screen.scss */
+footer + section a {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: .672em;
+}
+/* line 58, ../sass/screen.scss */
+footer + section a:last-child {
+  margin-right: 0;
+}
+
+/* line 65, ../sass/screen.scss */
 .click {
   position: absolute;
-  background-image: url('/site/images/click.png?1334113410');
+  background-image: url('/site/images/click.png?1334155472');
   background-repeat: no-repeat;
   width: 141px;
   height: 29px;
@@ -588,26 +613,26 @@ body > section {
   -webkit-transition-delay: 1s;
 }
 
-/* line 63, ../sass/screen.scss */
+/* line 79, ../sass/screen.scss */
 a {
   color: #58daff;
 }
-/* line 65, ../sass/screen.scss */
+/* line 81, ../sass/screen.scss */
 a:hover {
   opacity: 0.5;
 }
-/* line 68, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 a:active {
   opacity: 0.75;
 }
 
-/* line 73, ../sass/screen.scss */
+/* line 89, ../sass/screen.scss */
 aside {
   position: absolute;
   right: -60px;
   top: 60px;
 }
-/* line 77, ../sass/screen.scss */
+/* line 93, ../sass/screen.scss */
 aside a {
   display: block;
   font-size: 0.75em;
@@ -615,7 +640,7 @@ aside a {
   margin-bottom: 3px;
 }
 
-/* line 85, ../sass/screen.scss */
+/* line 101, ../sass/screen.scss */
 p {
   font-family: 'museo-sans-rounded';
   font-size: 0.9375em;
@@ -623,12 +648,12 @@ p {
   line-height: 1.5;
 }
 
-/* line 92, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 .highlight, footer span {
   color: #fa715f;
 }
 
-/* line 96, ../sass/screen.scss */
+/* line 112, ../sass/screen.scss */
 footer {
   background-color: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -636,13 +661,12 @@ footer {
   -moz-transition: background-color .25s ease !important;
   -webkit-transition: background-color .25s ease !important;
   transition: background-color .25s ease !important;
-  margin-bottom: 4.604em;
 }
-/* line 103, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 footer:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
-/* line 106, ../sass/screen.scss */
+/* line 122, ../sass/screen.scss */
 footer a {
   padding: 10px 0;
   width: 100%;
@@ -650,23 +674,23 @@ footer a {
   display: block;
   text-decoration: none;
 }
-/* line 112, ../sass/screen.scss */
+/* line 128, ../sass/screen.scss */
 footer a:hover {
   opacity: 1 !important;
 }
-/* line 116, ../sass/screen.scss */
+/* line 132, ../sass/screen.scss */
 footer div {
   width: 100%;
   height: 100%;
   display: block;
   text-decoration: none;
 }
-/* line 122, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 footer span {
   font-weight: 900;
 }
 
-/* line 129, ../sass/screen.scss */
+/* line 144, ../sass/screen.scss */
 body#specific div#kernjs_boundingbox {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
@@ -676,14 +700,14 @@ body#specific div#kernjs_boundingbox {
   transition: height .1s linear !important;
 }
 
-/* line 138, ../sass/screen.scss */
+/* line 153, ../sass/screen.scss */
 #panel {
   -moz-transition: opacity .4s ease-in-out !important;
   -webkit-transition: opacity .4s ease-in-out !important;
   transition: opacity .4s ease-in-out !important;
 }
 
-/* line 144, ../sass/screen.scss */
+/* line 159, ../sass/screen.scss */
 body#specific div#panel.kernjs_panel.kernjs_disabled {
   opacity: 0 !important;
   -webkit-transition-delay: 0.5s !important;

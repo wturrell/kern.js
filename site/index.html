@@ -27,10 +27,6 @@
       <header>
         <h1>kern.js</h1>
         <div class='click'></div>
-        <!-- %aside -->
-        <!-- %a{:href => "https://github.com/bstro/kern.js"} github -->
-        <!-- %a{:href => "http://www.twitter.com/bstrom"} twitter -->
-        <!-- %a{:href => "http://www.letteringjs.com"} lettering.js -->
       </header>
       <div role='main'>
         <p>A super-simple bookmarklet for designers that finally puts you back in control of your website's typography.</p>
@@ -47,6 +43,11 @@
           </div>
         </a>
       </footer>
+      <section>
+        <a href='https://github.com/bstro/kern.js'>github</a>
+        <a href='http://www.twitter.com/bstrom'>twitter</a>
+        <a href='http://www.letteringjs.com'>lettering.js</a>
+      </section>
     </section>
     <script src='/kern.js'></script>
     <script type='text/javascript'>
@@ -64,6 +65,7 @@
             $("#panel").css('opacity','0.5 !important');
             $("body > section").css('opacity','1');
             $("h1").click(function() {
+              $(this).addClass('active_h1');
               $("#panel").css('opacity','1 !important');
               $(".click").css({
                 'opacity': '0',

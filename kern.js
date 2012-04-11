@@ -366,7 +366,7 @@
             $(this).bind('mousemove', MoveHandler);
             $(this).mouseup(function (event) {
               $(this).unbind('mousemove', MoveHandler);
-              // $(activeEl).css('opacity', original_opacity + ' !important');
+              $(activeEl).css('opacity', original_opacity + ' !important');
             });
           }
         });

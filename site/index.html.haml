@@ -18,15 +18,12 @@
     %script{:src => "http://use.typekit.com/rbi0fyh.js", :type => "text/javascript"}
     :javascript
       try{Typekit.load();}catch(e){}
+  
   %body#specific
     %section
       %header
         %h1 kern.js
         .click
-        / %aside
-        /   %a{:href => "https://github.com/bstro/kern.js"} github
-        /   %a{:href => "http://www.twitter.com/bstrom"} twitter
-        /   %a{:href => "http://www.letteringjs.com"} lettering.js
 
       %div{:role => "main"}
         %p A super-simple bookmarklet for designers that finally puts you back in control of your website's typography.
@@ -38,6 +35,10 @@
         %a{:href => "javascript:void(0);"}
           %div#install
             %span drag to your bookmarks bar to install
+      %section
+        %a{:href => "https://github.com/bstro/kern.js"} github
+        %a{:href => "http://www.twitter.com/bstrom"} twitter
+        %a{:href => "http://www.letteringjs.com"} lettering.js
     %script{:src => "/kern.js"}
     :javascript
       window.jQuery || document.write('<\/script>')
@@ -50,6 +51,7 @@
           $("#panel").css('opacity','0.5 !important');
           $("body > section").css('opacity','1');
           $("h1").click(function() {
+            $(this).addClass('active_h1');
             $("#panel").css('opacity','1 !important');
             $(".click").css({
               'opacity': '0',

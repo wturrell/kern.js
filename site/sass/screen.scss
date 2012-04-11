@@ -12,8 +12,8 @@ body {
   font-family: 'museo-sans';
   font-size: 100%;
   line-height: 1.5;
-  background-image: image_url("press_25.png"), image_url("geometricPattern.png"), -webkit-linear-gradient(45deg, rgba(#45484d,0) 0%, rgba(#45484d,1) 50%, rgba(#45484d,0) 100%), image_url("noisePattern.jpg");
-  background-size: 75%, auto, auto, 100% 100%;
+  background-image: image_url("press_8.png"), image_url("geometricPattern.png"), -webkit-linear-gradient(45deg, rgba(#45484d,0) 0%, rgba(#45484d,1) 50%, rgba(#45484d,0) 100%), image_url("noisePattern.jpg");
+  background-size: 70%, auto, auto, 100% 100%;
   background-repeat: no-repeat, repeat, repeat;
   background-position: bottom left;
   background-attachment: fixed, fixed, fixed, fixed;
@@ -35,6 +35,11 @@ header {
     }
 }
 
+.active_h1 {
+  color: rgba(#fff,0.5);
+  * { color: rgba(#fff,0.5); }
+}
+
 body > section {
     width: 19.5em;
     margin: 0 auto; 
@@ -44,6 +49,17 @@ body > section {
     -webkit-transition: opacity .3s ease-in-out;
     transition: opacity .3s ease-in-out;
     -webkit-transition-delay: 0.25s;
+}
+
+footer + section {
+  a {
+    display: inline-block;
+    margin-right: 10px;
+    &:last-child { margin-right: 0;}
+    font-size: .672em;
+  }
+  margin-top: 1em;
+  margin-bottom: 4.604em;
 }
 
 .click {
@@ -123,7 +139,6 @@ footer {
       @extend .highlight;
       font-weight: 900;
     }
-    margin-bottom: 4.604em;
 }
 
 body#specific div#kernjs_boundingbox {
