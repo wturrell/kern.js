@@ -169,16 +169,16 @@ button#kernjs_complete {
   background-position: 0 0 !important;
 }
 #kernjs_size div {
-  background-position: -35px 0 !important;
+  background-position: -34px 0 !important;
 }
 #kernjs_vert div {
   background-position: -68px 0 !important;
 }
 #kernjs_angle div {
-  background-position: -103px 0 !important;
+  background-position: -102px 0 !important;
 }
 #kernjs_pos div {
-  background-position: -137px 0 !important;
+  background-position: -136px 0 !important;
 }
 
 #kernjs_generateSelect {
