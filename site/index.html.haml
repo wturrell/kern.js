@@ -15,6 +15,7 @@
     %link{:href => "/kernjs.css", :rel => "stylesheet"}
     %script{:src => "/site/js/libs/modernizr-2.5.3.min.js"}
     %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
+    %script{:src => "/site/js/lettering.js"}
     %script{:src => "http://use.typekit.com/rbi0fyh.js", :type => "text/javascript"}
     :javascript
       try{Typekit.load();}catch(e){}
@@ -65,3 +66,5 @@
             'opacity': '1',
           });
       });
+    :javascript
+      $("h1").lettering();
