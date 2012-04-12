@@ -29,8 +29,7 @@
         %p A super-simple bookmarklet for designers that finally puts you back in control of your website's typography.
         %p Here's how it works: Add the bookmarklet to your browser and activate it while at your page. Then adjust your kerning, line-height, letter placement and more to your heart's content! When you're done, just copy the generated CSS and use it in your own stylesheet, right there alongside Lettering.js.
         %p
-          See?
-          %span.highlight Suuuuuuper easy.
+          See? Suuuuuuper easy.
       %footer
         %a{:href => "javascript:void(0);"}
           %div#install
@@ -48,11 +47,11 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));
     :javascript    
       $(document).ready(function() {
-          $("#panel").css('opacity','0.5');
+          $("#panel").addClass('loaded');
           $("body > section").css('opacity','1');
           $("h1").click(function() {
             $(this).addClass('active_h1');
-            $("#panel").css('opacity','1');
+            $("#panel").addClass('activePanel');
             $(".click").css({
               'opacity': '0',
               '-webkit-transition-duration': '0.25s',
