@@ -1,12 +1,11 @@
 /*
-* Kern.JS 0.50
+* Kern.JS v2
 * http://www.kernjs.com
 * Built by Brendan Stromberger, www.bstro.me
 
 * Thanks to:
 ** Jonathan Vingiano <jonathanvingiano.com> for making the Kern.js engine purr.
 ** Nick Bogdanov at frague.github.com for adding major functionality to the app.
-** Daniel Samson for converting this all into a Chrome widget at https://chrome.google.com/webstore/detail/mjdjmhnlobpmpcldklndglllamnlddmo?hl=en
 
 * Special thanks to Mathew Luebbert at www.luebbertm.com for significant code contributions
 
