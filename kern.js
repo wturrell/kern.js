@@ -36,7 +36,7 @@
 
     thePanel = document.createElement("div");
     thePanel.id = "panel";
-    thePanel.setAttribute("class", "kernjs_panel kernjs_disabled");
+    thePanel.setAttribute("class", "kernjs_disabled");
     $(thePanel).css('opacity', '0');
 
     $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"></div><div id="kernjs_dialog">').appendTo($("body"));
@@ -355,7 +355,7 @@
           if($.contains(el, event.target)) {
             activeEl = event.target; // Set activeEl to represent the clicked letter.
 
-            $(activeEl).css('opacity', '0.5 !important');
+            $(activeEl).css('opacity', '0.5');
 
             lastX = event.pageX;
             lastY = event.pageY;
@@ -366,51 +366,13 @@
             $(this).bind('mousemove', MoveHandler);
             $(this).mouseup(function (event) {
               $(this).unbind('mousemove', MoveHandler);
-              $(activeEl).css('opacity', original_opacity + ' !important');
+              $(activeEl).css('opacity', original_opacity);
             });
           }
         });
         // end el click
       }
     });
-
-    // $(document).keydown(function (event) { // This feels cludgy and should probably be rewritten at some point b/c there is a lot of reused code.
-    //   var elid = "",
-    //     renew = 0,
-    //     adj;
-    //   if (activeEl) {
-    //     elid += activeEl.tagName.toLowerCase() + " ";
-    //     if ($(activeEl).parent().attr('id')) {
-    //       elid += "#" + $(activeEl).parent().attr('id') + " ";
-    //     }
-    //     if (adjustments[elid + "." + $(activeEl).attr("class")]) { // If there are current adjustments already made for this letter
-    //       adj = adjustments[elid + "." + $(activeEl).attr("class")]; // Set the kerning variable to the previously made adjustments for this letter (stored inside the adjustments dictionary object)
-    //     } else {
-    //       adj = new Adjustment($(activeEl));
-    //     }
-    //     if (event.which === 37) { // If left arrow key
-    //       adj.set_position(-1, 0);
-    //       renew = 1;
-    //     }
-    //     if (event.which === 39) { // If right arrow key
-    //       adj.set_position(1, 0);
-    //       renew = 1;
-    //     }
-    //     if (event.which === 38) { // If up arrow key
-    //       adj.set_position(0, -1);
-    //       renew = 1;
-    //     }
-    //     if (event.which === 40) { // If down arrow key
-    //       adj.set_position(0, 1);
-    //       renew = 1;
-    //     }
-    //     if (renew) {
-    //       event.stopPropagation();
-    //       adjustments[elid + "." + $(activeEl).attr("class")] = adj; // add/modify the current letter's kerning information to the "adjustments" object.
-    //       generateCSS(adjustments, emPx, unitFlag);
-    //     }
-    //   }
-    // });
 
     $("#kernjs_textarea").live('click', function () {
       $(this).focus();
@@ -444,11 +406,7 @@
 
       $("#kernjs_dialog").html(outputHTML).appendTo($("#kernjs_overlay"));
 
-      $("#kernjs_overlay").css({
-        'height': '100% !important',
-        'opacity': '1 !important'
-      });
-
+      $('#kernjs_overlay').addClass('kernjs_overlay_active');
       $("#kernjs_dialog").addClass('kernjs_dialog_active');
 
       $("#kernjs_units").bind('click', function() {
@@ -465,11 +423,7 @@
 
       $("#kernjs_dialogshade").bind('click', function() {
         $("#kernjs_dialog").removeClass('kernjs_dialog_active');
-        $("#kernjs_overlay").bind(transitionEnd, function() {
-            $(this).unbind(transitionEnd);
-            $("#kernjs_overlay").css({ height: "0 !important" });
-        });
-        $("#kernjs_overlay").css({ opacity: "0 !important" });
+        $("#kernjs_overlay").removeClass('kernjs_overlay_active');
       });
     });
   }

@@ -14,7 +14,7 @@
     %link{:href => "/site/stylesheets/screen.css", :rel => "stylesheet"}
     %link{:href => "/kernjs.css", :rel => "stylesheet"}
     %script{:src => "/site/js/libs/modernizr-2.5.3.min.js"}
-    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
     %script{:src => "http://use.typekit.com/rbi0fyh.js", :type => "text/javascript"}
     :javascript
       try{Typekit.load();}catch(e){}
@@ -48,11 +48,11 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));
     :javascript    
       $(document).ready(function() {
-          $("#panel").css('opacity','0.5 !important');
+          $("#panel").css('opacity','0.5');
           $("body > section").css('opacity','1');
           $("h1").click(function() {
             $(this).addClass('active_h1');
-            $("#panel").css('opacity','1 !important');
+            $("#panel").css('opacity','1');
             $(".click").css({
               'opacity': '0',
               '-webkit-transition-duration': '0.25s',

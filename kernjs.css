@@ -55,7 +55,7 @@ table-layout: auto !important;
   opacity: .5 !important;
 }
 
-#panel.kernjs_panel {
+#panel {
   background: white !important;
   border-bottom: 1px solid #cacaca !important;
   height: 3px !important;
@@ -64,13 +64,14 @@ table-layout: auto !important;
   top: 0 !important;
 }
 
-#panel.kernjs_panel {
+#panel {
   -moz-transition: opacity .5s ease !important;
   -webkit-transition: opacity .5s ease !important;
   transition: opacity .5s ease !important;
+  -webkit-backface-visibility: hidden !important;
 }
 
-#panel.kernjs_panel.kernjs_disabled {
+#panel.kernjs_disabled {
   pointer-events:none !important;
   opacity: 0.5 !important;
 }
@@ -364,10 +365,11 @@ button#kernjs_complete {
   -moz-transition: opacity .5s ease !important;
   -webkit-transition: opacity .5s ease !important;
   transition: opacity .5s ease !important;
+  -webkit-backface-visibility: hidden !important;
 }
 
 #kernjs_overlay {
-  height: 0% !important;
+  height: 100% !important;
   width: 100% !important;
   position: fixed !important;
   top: 0 !important;
@@ -376,6 +378,12 @@ button#kernjs_complete {
   overflow: hidden !important;
   background: rgba(0,0,0,0.8) !important;
   opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+#kernjs_overlay.kernjs_overlay_active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 #kernjs_dialogshade {
@@ -416,6 +424,7 @@ button#kernjs_complete {
   -webkit-transform: scale(1) !important;
   -moz-transform: scale(1) !important;
   transform: scale(1) !important;
+  opacity: 1 !important;
 }
 
 #kernjs_overlay, #kernjs_overlay * {
@@ -423,13 +432,5 @@ button#kernjs_complete {
   -webkit-transition: margin-left .4s ease, opacity .3s ease, -webkit-transform .5s ease !important;
   transition: margin-left .4s ease, opacity .3s ease, transform .5s ease !important;
   -webkit-font-smoothing: antialiased !important;
-}
-
-#kernjs_overlay {
-  opacity: 0 !important;
-}
-
-#kernjs_overlay.kernjs_overlay_active {
-  height: 100% !important;
-  opacity: 1 !important;
+  -webkit-backface-visibility: hidden !important;
 }
