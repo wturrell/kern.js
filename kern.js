@@ -218,7 +218,7 @@
       if ($(el).children().length === 0) {
         return injector($(el), '', 'char', '');
       }
-      return $.each(el.children(), function (index, value) {
+      return $.each($(el).children(), function (index, value) {
         splitter(value);
       });
     }
