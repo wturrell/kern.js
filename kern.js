@@ -34,7 +34,7 @@
     document.getElementsByTagName("head")[0].appendChild(panelCss);
 
     thePanel = document.createElement("div");
-    thePanel.id = "panel";
+    thePanel.id = "kernjs_panel_container";
     thePanel.setAttribute("class", "kernjs_disabled");
 
     $('<div id="kernjs_overlay"><div id="kernjs_dialogshade"></div><div id="kernjs_dialog">').appendTo($("body"));
