@@ -1,4 +1,3 @@
-# Kern.js v2
+# gh-pages branch
 
-### Known issues
-+ Does not work if the selected element contains any other HTML tags (such as line breaks, spans, etc).
+This branch hosts the publicly-accessible files accessed by the bookmarklet.
