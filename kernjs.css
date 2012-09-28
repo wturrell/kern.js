@@ -55,20 +55,21 @@ table-layout: auto !important;
   opacity: .5 !important;
 }
 
-#panel {
+#kernjs_panel_container {
   background: white !important;
   border-bottom: 1px solid #cacaca !important;
   height: 3px !important;
   width: 100% !important;
   position: fixed !important;
   top: 0 !important;
+  z-index: 2147483644 !important;
   -moz-transition: opacity .5s ease !important;
   -webkit-transition: opacity .5s ease !important;
   transition: opacity .5s ease !important;
   -webkit-backface-visibility: hidden !important;
 }
 
-#panel.kernjs_disabled {
+#kernjs_panel_container.kernjs_disabled {
   opacity: 0.5 !important;
 }
 
