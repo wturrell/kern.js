@@ -372,7 +372,7 @@
       }
     });
 
-    $("#kernjs_textarea").live('click', function () {
+    $("#kernjs_textarea").on('click', function () {
       $(this).focus();
       $(this).select();
     });
@@ -383,11 +383,12 @@
 
       $("#kernjs_overlay").addClass('kernjs_animate');
 
-      if ($.browser.webkit) {
+      var user_agent = window.navigator.userAgent;
+      if (user_agent.indexOf("Chrome") > -1 || user_agent.indexOf("Safari")) {
         transitionEnd = "webkitTransitionEnd";
-      } else if ($.browser.mozilla) {
+      } else if (user_agent.indexOf("Firefox") > -1) {
         transitionEnd = "transitionend";
-      } else if ($.browser.opera) {
+      } else if (user_agent.indexOf("Opera") > -1) {
         transitionEnd = "oTransitionEnd";
       }
 
