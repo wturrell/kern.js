@@ -18,13 +18,11 @@ min-width: 0 !important;
 visibility: visible !important;
 width: auto !important;
 
-bottom: auto !important;
 clip: auto !important;
 left: auto !important;
 overflow: auto !important;
 position: relative !important;
 right: auto !important;
-top: auto !important;
 vertical-align: top !important;
 z-index: 1 !important;
 
@@ -59,9 +57,7 @@ table-layout: auto !important;
   background: white !important;
   border-bottom: 1px solid #cacaca !important;
   height: 3px !important;
-  width: 100% !important;
   position: fixed !important;
-  top: 0 !important;
   z-index: 2147483644 !important;
   -moz-transition: opacity .5s ease !important;
   -webkit-transition: opacity .5s ease !important;
@@ -81,24 +77,21 @@ table-layout: auto !important;
     font-size: 16px !important;
     text-transform: none !important;
     position: fixed !important;
-    top: 0 !important;
     z-index: 2147483644 !important;
     text-align: center !important;
     height: auto !important;
-    width: 100% !important;
-    margin: 0 auto !important;
+	left: 50% !important;
+    margin: 0 auto 0 -156px !important;
     padding: 0px 0 0 0 !important;
 }
 
 #kernjs_transformSelect {
   border: 1px solid #cacaca !important;
-  border-top: 1px solid #ffffff !important;
   background-color: #FFF !important;
   width: 310px !important;
   height: auto !important;
   display: inline-block !important;
-  border-bottom-left-radius: 8px !important;
-  border-bottom-right-radius: 8px !important;
+  border-radius: 8px !important;
   overflow: hidden !important;
   margin: 0 auto !important;
   margin-top: 3px !important;
@@ -106,7 +99,7 @@ table-layout: auto !important;
 }
 
 #kernjs_input {
-  margin: 0px 3px 3px 3px !important;
+  margin: 3px !important;
   display: inline-block !important;
   background-color: #e8e8e8 !important;
   border: 1px solid rgba(0,0,0,0.15) !important;
@@ -250,6 +243,16 @@ button#kernjs_complete {
     margin: 0 auto !important;
     text-transform: none !important;
 }
+
+.kernjs_top_position {
+	top: 0 !important;
+}
+
+.kernjs_bottom_position {
+	bottom: 0 !important;
+}
+
+
 #kernjs_instructions {
     margin: 0 auto !important;
     width: 540px !important;
