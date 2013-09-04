@@ -5,13 +5,16 @@ The aim of this is to fix a few bugs and generally improve the UX / reduce frict
 
 ### How to Use
 
-- Drag the <a href="javascript:(function(){document.body.appendChild(document.createElement('…ript')).src='http://wturrell.github.com/kern.js/kern.js';})();">Kern.js</a> bookmarklet to your bookmarks bar
+- Create a bookmarklet with the URL
+
+`javascript:(function(){document.body.appendChild(document.createElement('script')).src='http://wturrell.github.com/kern.js/kern.js';})();`
+
 - Browse to page you want to adjust (ensure it has jQuery loaded)
 - Launch bookmarklet
 - Click on the text you want to adjust (can be headings and certain other tags, captions, quotes etc.)
-- Box will appear around text
 - Adjust kerning, size, line height, absolute position and rotation for each character
 - Generate HTML and CSS code needed
+- Press `?` for help
 
 KernJS emulates what lettering.JS does, but you don't need lettering.JS installed to be able to use it. You have a choice between using lettering.JS to create `span` tags for individual letters on page load, or 
 including them in your actual HTML.
